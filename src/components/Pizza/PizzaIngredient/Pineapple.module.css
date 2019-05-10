@@ -1,0 +1,75 @@
+.pineapple1,
+.pineapple2,
+.pineapple3,
+.pineapple4,
+.pineapple5,
+.pineapple6,
+.pineapple7,
+.pineapple8,
+.pineapple9,
+.pineapple10 {
+    position: absolute;
+    width: 2rem;
+    height: 5rem;
+    background-color: yellow;
+}
+
+.pineapple1 {
+    top: 5rem;
+    left: 6rem;
+    transform: rotate(40deg);
+}
+
+.pineapple2 {
+    bottom: 5rem;
+    right: 6rem;
+    transform: rotate(55deg);
+}
+
+.pineapple3 {
+    bottom: 8rem;
+    right: 18rem;
+    transform: rotate(-78deg);
+}
+
+.pineapple4 {
+    top: 15rem;
+    right: 6rem;
+    transform: rotate(-42deg);
+}
+
+.pineapple5 {
+    bottom: 3rem;
+    left: 9rem;
+    transform: rotate(19deg);
+}
+
+.pineapple6 {
+    top: 15rem;
+    left: 2rem;
+    transform: rotate(59deg);
+}
+
+.pineapple7 {
+    top: 4rem;
+    right: 9rem;
+    transform: rotate(-41deg);
+}
+
+.pineapple8 {
+    top: 7rem;
+    left: 16rem;
+    transform: rotate(7deg);
+}
+
+.pineapple9 {
+    bottom: 13rem;
+    left: 6rem;
+    transform: rotate(17deg);
+}
+
+.pineapple10 {
+    bottom: 16rem;
+    left: 16rem;
+    transform: rotate(-97deg);
+}

@@ -1,0 +1,126 @@
+.olive1,
+.olive2,
+.olive3,
+.olive4,
+.olive5,
+.olive6,
+.olive7,
+.olive8,
+.olive9,
+.olive10,
+.olive11,
+.olive12,
+.olive13,
+.olive14,
+.olive15,
+.olive16,
+.olive17,
+.olive18,
+.olive19,
+.olive20 {
+    width:3rem;
+    height:3rem;
+    border: 1rem solid black;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.olive1 {
+    top: 5rem;
+    left: 8rem;
+}
+
+.olive2 {
+    top: 15rem;
+    left: 18rem;
+}
+
+.olive3 {
+    right: 4rem;
+    bottom: 11rem;
+}
+
+.olive4 {
+    top: 3rem;
+    left: 18rem;
+}
+
+.olive5 {
+    bottom: 5rem;
+    left: 8rem;
+}
+
+.olive6 {
+    top: 2rem;
+    right: 12rem;
+}
+
+.olive7 {
+    top: 19rem;
+    left: 4rem;
+}
+
+.olive8 {
+    bottom: 5rem;
+    left: 17rem;
+}
+
+.olive9 {
+    bottom: 13rem;
+    left: 8rem;
+}
+
+.olive10 {
+    top: 15rem;
+    right: 8rem;
+}
+
+.olive11 {
+    bottom: 15rem;
+    right: 8rem;
+}
+
+.olive12 {
+    bottom: 12rem;
+    right: 18rem;
+}
+
+.olive13 {
+    top: 8rem;
+    right: 15rem;
+}
+
+.olive14 {
+    bottom: 5rem;
+    right: 12rem;
+}
+
+.olive15 {
+    top: 19rem;
+    left: 12rem;
+}
+
+.olive16 {
+    top: 18rem;
+    right: 15rem;
+}
+
+.olive17 {
+    top: 8rem;
+    right: 6rem;
+}
+
+.olive18 {
+    top: 9rem;
+    left: 13rem;
+}
+
+.olive19 {
+    top: 12rem;
+    left: 8rem;
+}
+
+.olive20 {
+    top: 18rem;
+    right: 2rem;
+}

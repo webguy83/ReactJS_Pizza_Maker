@@ -1,0 +1,75 @@
+.veggie1,
+.veggie2,
+.veggie3,
+.veggie4,
+.veggie5,
+.veggie6,
+.veggie7,
+.veggie8,
+.veggie9,
+.veggie10 {
+    height: 5rem;
+    width: 1.5rem;
+    background: green;
+    position: absolute;
+}
+
+.veggie1 {
+    top: 4rem;
+    right: 9rem;
+    transform: rotate(15deg);
+}
+
+.veggie2 {
+    top: 6rem;
+    left: 12rem;
+    transform: rotate(25deg);
+}
+
+.veggie3 {
+    bottom: 4rem;
+    right: 8rem;
+    transform: rotate(-78deg);
+}
+
+.veggie4 {
+    top: 4rem;
+    left: 6rem;
+    transform: rotate(55deg);
+}
+
+.veggie5 {
+    bottom: 6rem;
+    left: 14rem;
+    transform: rotate(-80deg);
+}
+
+.veggie6 {
+    top: 16rem;
+    left: 10rem;
+    transform: rotate(46deg);
+}
+
+.veggie7 {
+    top: 6rem;
+    left: 12rem;
+    transform: rotate(25deg);
+}
+
+.veggie8 {
+    top: 16rem;
+    right: 12rem;
+    transform: rotate(-30deg);
+}
+
+.veggie9 {
+    bottom: 12rem;
+    right: 12rem;
+    transform: rotate(14deg);
+}
+
+.veggie10 {
+    bottom: 16rem;
+    left: 16rem;
+    transform: rotate(25deg);
+}

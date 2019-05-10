@@ -1,0 +1,66 @@
+.pepperoni1,
+.pepperoni2,
+.pepperoni3,
+.pepperoni4,
+.pepperoni5,
+.pepperoni6,
+.pepperoni7,
+.pepperoni8,
+.pepperoni9,
+.pepperoni10 {
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background: #D90404;
+    position: absolute;
+}
+
+.pepperoni1 {
+    top: 4rem;
+    left: 5rem;
+}
+
+.pepperoni2 {
+    top: 12rem;
+    left: 1rem;
+}
+
+.pepperoni3 {
+    bottom: 10rem;
+    left: 3rem;
+}
+
+.pepperoni4 {
+    bottom: 2rem;
+    left: 10rem;
+}
+
+.pepperoni5 {
+    top: 13rem;
+    left: 15rem;
+}
+
+.pepperoni6 {
+    top: 14rem;
+    right: 4rem;
+}
+
+.pepperoni7 {
+    bottom: 5rem;
+    right: 5rem;
+}
+
+.pepperoni8 {
+    right: 13rem;
+    bottom: 8rem;
+}
+
+.pepperoni9 {
+    top: 1rem;
+    left: 13rem;
+}
+
+.pepperoni10 {
+    top: 4rem;
+    right: 8rem;
+}

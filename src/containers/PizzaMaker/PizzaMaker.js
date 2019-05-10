@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/Aux';
+import Auxiliary from '../../hoc/Auxiliary';
 
 import Pizza from '../../components/Pizza/Pizza';
 
 class PizzaMaker extends Component {
     render() {
         return (
-            <Aux>
+            <Auxiliary>
                 <Pizza />
                 <p>Pizza Controls</p>
-            </Aux>
+            </Auxiliary>
         );
     }
 }

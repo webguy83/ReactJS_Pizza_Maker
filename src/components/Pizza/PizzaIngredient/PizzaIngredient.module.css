@@ -25,21 +25,21 @@
 }
 
 .handle {
-  width: 30rem;
-  height: 8rem;
+  width: 63%;
+  height: 16%;
   background: #4A1804;
   border-radius: 50px;
   position: absolute;
-  bottom: -2rem;
-  right: -17rem;
+  bottom: 2rem;
+  right: -10rem;
   transform: rotate(40deg);
   z-index: -1;
 }
 
 .handleHole {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 5rem;
+  width: 8%;
+  height: 33%;
+  border-radius: 50%;
   background: white;
   position: absolute;
   bottom: 2.5rem;

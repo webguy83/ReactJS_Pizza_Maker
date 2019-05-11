@@ -8,10 +8,12 @@
 .mushroom8,
 .mushroom9 {
     position: absolute;
+    width: 76%;
+    height: 87%;
 }
 
 .mushroom1 {
-    left: 4rem;
+    right: 10rem;
     top: 10rem;
     transform: rotate(121deg);
 }
@@ -23,57 +25,65 @@
 }
 
 .mushroom3 {
-    left: 11rem;
-    top: 10rem;
+    left: 2rem;
+    top: -12rem;
     transform: rotate(-134deg);
 }
 
 .mushroom4 {
-    right: 4rem;
+    right: 1rem;
     bottom: 7rem;
     transform: rotate(-59deg);
 }
 
 .mushroom5 {
-    right: 9rem;
-    top: 2rem;
+    right: 13rem;
+    top: -9rem;
     transform: rotate(149deg);
 }
 
 .mushroom6 {
-    left: 20rem;
+    right: 5rem;
     top: 10rem;
     transform: rotate(20deg);
 }
 
 .mushroom7 {
     left: 5rem;
-    bottom: 9rem;
+    bottom: 17rem;
     transform: rotate(-106deg);
 }
 
 .mushroom8 {
     left: 13rem;
-    bottom: 11rem;
+    bottom: -5rem;
     transform: rotate(9deg);
 }
 
 .mushroom9 {
-    left: 14rem;
-    bottom: 1rem;
+    left: 4rem;
+    bottom: 8rem;
     transform: rotate(-140deg);
 }
 
 .mushroomCup {
-    height: 2.6rem;
-    width: 6rem;
+    height: 6%;
+    width: 12%;
     border-radius: 8rem 8rem 0 0;
     background: #b49989;
 }
 
+/* height: 7%;
+width: 15%; */
+
 .mushroomStem {
-    height: 3.2rem;
-    width: 2rem;
+    height: 8%;
+    width: 5%;
     background: #c3b5ae;
-    margin-left: 1.9rem;
+    margin-left: 4%;
 }
+
+/* height: 8%;
+width: 5%;
+background: #c3b5ae;
+margin-left: 5%; */

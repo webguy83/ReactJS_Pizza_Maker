@@ -1,4 +1,6 @@
 .Content {
     color: red;
     margin-top: 1rem;
+
+    display: flex;
 }

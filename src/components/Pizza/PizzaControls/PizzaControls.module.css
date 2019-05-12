@@ -1,0 +1,27 @@
+.PizzaControls {
+    min-height: 30rem;
+    background-color: #E09B31;
+    padding: 0 2rem;
+    color: #fff;
+    font-family: 'ZCOOL KuaiLe', cursive;
+}
+
+.pizzaControlsHeading {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2.2rem;
+}
+
+.chooseHeading {
+    font-size: 1.4rem;
+}
+
+.ingredientBtns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    grid-auto-rows: 3rem;
+    grid-gap: 1rem;
+
+    margin-top: 2rem;
+}

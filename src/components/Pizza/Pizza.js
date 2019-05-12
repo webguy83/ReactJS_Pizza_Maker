@@ -1,18 +1,20 @@
 import React from 'react';
 import PizzaIngredient from './PizzaIngredient/PizzaIngredient';
 
-import pizzaGenericStyles from './PizzaIngredient/PizzaIngredient.module.css';
+import pizzaGenericStyles from './Pizza.module.css';
 
-const Pizza = () => {
+const Pizza = (props) => {
+    const {ingredients} = props;
+
+    const modifiedIngredients = ingredients.map(ing => {
+        return <PizzaIngredient type={ing} key={ing} />
+    })
+
     return (
         <div className={pizzaGenericStyles.plate}>
             <div className={pizzaGenericStyles.pizzaBase1}>
                 <div className={pizzaGenericStyles.pizzaBase2}>
-                    <PizzaIngredient type="pepperoni" />
-                    <PizzaIngredient type="veggie" />
-                    <PizzaIngredient type="pineapple" />
-                    <PizzaIngredient type="mushroom" />
-                    <PizzaIngredient type="olives" />
+                  {modifiedIngredients}
                 </div>
             </div>
             <div className={pizzaGenericStyles.handle}>

@@ -12,3 +12,11 @@ body {
 html {
   font-size: 62.5%;
 }
+
+:root {
+  --primary-colour: #E09B31;
+
+  --pepperoni-colour: #D90404;
+  --pizza-pan-colour: #4A1804;
+  --pizza-cheese-colour: #FFC61C;
+}

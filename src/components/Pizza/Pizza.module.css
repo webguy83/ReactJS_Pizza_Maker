@@ -1,0 +1,47 @@
+.plate {
+  width: 50rem;
+  height: 50rem;
+  border-radius: 50%;
+  background: #4A1804;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pizzaBase1,
+.pizzaBase2 {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  transform: translate(5.5%, 5.5%);
+}
+
+.pizzaBase1 {
+  background-color: #E09B31;
+}
+
+.pizzaBase2 {
+  background-color: #FFC61C;
+  position: relative;
+}
+
+.handle {
+  width: 63%;
+  height: 16%;
+  background: #4A1804;
+  border-radius: 50px;
+  position: absolute;
+  bottom: 2rem;
+  right: -10rem;
+  transform: rotate(40deg);
+  z-index: -1;
+}
+
+.handleHole {
+  width: 8%;
+  height: 33%;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  bottom: 2.5rem;
+  right: 1.4rem;
+}

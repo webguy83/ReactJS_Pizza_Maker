@@ -1,0 +1,13 @@
+.ingredientBtn {
+    cursor: pointer;
+    background-color: var(--pizza-pan-colour);
+    color: #fff;
+    font: inherit;
+    font-size: 1.6rem;
+    border: .1rem solid #fff;
+    outline: none;
+}
+
+.selected {
+    background-color: var(--pepperoni-colour);
+}

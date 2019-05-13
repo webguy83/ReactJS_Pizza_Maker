@@ -6,8 +6,10 @@ import pizzaGenericStyles from './Pizza.module.css';
 const Pizza = (props) => {
     const {ingredients} = props;
 
-    const modifiedIngredients = ingredients.map(ing => {
-        return <PizzaIngredient type={ing} key={ing} />
+    const modifiedIngredients = ingredients.filter(ing => {
+        return ing.purchased === true;
+    }).map(ing => {
+        return <PizzaIngredient type={ing.type} key={ing.type} />
     })
 
     return (

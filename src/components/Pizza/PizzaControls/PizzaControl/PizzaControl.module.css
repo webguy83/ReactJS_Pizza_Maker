@@ -8,6 +8,7 @@
     outline: none;
 }
 
-.selected {
-    background-color: var(--pepperoni-colour);
+.ingredientBtnSelected {
+    background-color: green;
+    text-transform: uppercase;
 }

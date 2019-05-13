@@ -1,11 +1,12 @@
 import React from 'react';
 
 import styles from './PizzaControl.module.css';
+import classNames from 'classnames';
 
 const PizzaControl = (props) => {
-    const {type} = props;
+    const {type, purchased} = props;
     return (
-         <button className={styles.ingredientBtn}>{type}</button>
+         <button onClick={props.incredientClick} className={classNames({[styles.ingredientBtn]: true, [styles.ingredientBtnSelected]: purchased })}>{type}</button>
     );
 };
 

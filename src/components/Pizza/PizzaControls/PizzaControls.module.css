@@ -14,7 +14,10 @@
 }
 
 .chooseHeading {
-    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    font-size: 1.8rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
 }
 
 .ingredientBtns {
@@ -22,6 +25,33 @@
     grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
     grid-auto-rows: 3rem;
     grid-gap: 1rem;
-
     margin-top: 2rem;
+}
+
+.cart {
+    font-family: 'Raleway', sans-serif;
+    margin-top: 1.5rem;
+    background-color: var(--pizza-cheese-colour);
+    color: var(--pizza-pan-colour);
+    border: .1rem solid var(--pizza-pan-colour);
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.subTotalLabel, .totalPriceLabel {
+    font-size: 1.5rem;
+    justify-self: end;
+    font-weight: bold;
+}
+
+.totalPrice > strong {
+    font-size: 3rem;
+}
+
+.subTotalPrice > strong {
+    font-size: 2rem;
 }

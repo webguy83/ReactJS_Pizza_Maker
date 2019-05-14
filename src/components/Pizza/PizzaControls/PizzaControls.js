@@ -9,7 +9,7 @@ const PizzaControls = (props) => {
 
     const pizzaControlElems = ingredients.map(ing => {
         const type = ing.type;
-        return <PizzaControl purchased={ing.purchased} incredientClick={() => incredientClick(type)} key={type} type={type.slice(0, 1).toUpperCase() + type.slice(1)} />
+        return <PizzaControl purchased={ing.purchased} incredientClick={() => incredientClick(type)} key={type} type={type} />
     })
 
     return (
@@ -25,6 +25,7 @@ const PizzaControls = (props) => {
                 <p className={styles.totalPriceLabel}>Total :</p>
                 <p className={styles.totalPrice}><strong>${totalPriceWithTax.toFixed(2)}</strong></p>
             </div>
+            <button onClick={props.orderBtnClicked} className={styles.orderBtn}>Order Now!</button>
         </div>
     );
 };

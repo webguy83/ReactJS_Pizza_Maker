@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Auxiliary from '../../hoc/Auxiliary';
 
+import OrderSummary from '../../components/Pizza/OrderSummary/OrderSummary';
+import Modal from '../../components/UI/Modal/Modal';
 import Pizza from '../../components/Pizza/Pizza';
 import PizzaControls from '../../components/Pizza/PizzaControls/PizzaControls';
 
@@ -16,7 +18,8 @@ class PizzaMaker extends Component {
                 purchased: false
             }
         }),
-        totalPrice: 5.99
+        totalPrice: 5.99,
+        purchasing: false
     }
 
     addIngredientHandler = (type) => {
@@ -33,11 +36,21 @@ class PizzaMaker extends Component {
         })
     }
 
+    orderHandler = () => {
+        this.setState({ purchasing: true });
+    }
+
+    closeBackdropHandler = () => {
+        this.setState({ purchasing: false });
+    }
+
     render() {
-        console.log("$"+this.state.totalPrice.toFixed(2))
         return (
             <Auxiliary>
-                <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} />
+                <Modal closeBackdropHandler={this.closeBackdropHandler} show={this.state.purchasing}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
+                <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
                 {<Pizza ingredients={this.state.ingredients} />}
             </Auxiliary>
         );

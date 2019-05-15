@@ -1,0 +1,19 @@
+.GenericButton {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 1rem;
+    margin: 1rem;
+    font-weight: bold;
+}
+
+.Success {
+    color: #5C9210;
+}
+
+.Failure {
+    color: #944317;
+}

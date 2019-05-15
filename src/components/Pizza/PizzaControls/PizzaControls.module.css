@@ -4,6 +4,12 @@
     color: #fff;
     font-family: 'ZCOOL KuaiLe', cursive;
     border: .1rem solid var(--pizza-pan-colour);
+    min-width: 52rem;
+}
+
+.pizzaControlBlock {
+    max-width: 40rem;
+    margin: 0 auto;
 }
 
 .pizzaControlsHeading {

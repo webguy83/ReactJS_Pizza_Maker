@@ -14,6 +14,7 @@ const PizzaControls = (props) => {
 
     return (
         <div className={styles.PizzaControls}>
+            <div className={styles.pizzaControlBlock}>
             <h2 className={styles.pizzaControlsHeading}>Customize your pizza!</h2>
             <p className={styles.chooseHeading}>Choose your ingredients for only 99&cent; more!</p>
             <div className={styles.ingredientBtns}>
@@ -26,6 +27,8 @@ const PizzaControls = (props) => {
                 <p className={styles.totalPrice}><strong>${totalPriceWithTax.toFixed(2)}</strong></p>
             </div>
             <button onClick={props.orderBtnClicked} className={styles.orderBtn}>Order Now!</button>
+            </div>
+            
         </div>
     );
 };

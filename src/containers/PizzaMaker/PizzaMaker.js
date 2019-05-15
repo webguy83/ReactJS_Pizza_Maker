@@ -54,8 +54,8 @@ class PizzaMaker extends Component {
                 <Modal closeBackdropHandler={this.closeBackdropHandler} show={this.state.purchasing}>
                     <OrderSummary subtotalPrice={this.state.totalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.state.ingredients} />
                 </Modal>
-                <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
                 {<Pizza ingredients={this.state.ingredients} />}
+                <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
             </Auxiliary>
         );
     }

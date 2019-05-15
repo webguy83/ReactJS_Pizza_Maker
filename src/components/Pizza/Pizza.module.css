@@ -1,9 +1,9 @@
 .plate {
-  width: 50rem;
-  height: 50rem;
+  width: 40rem;
+  height: 40rem;
   border-radius: 50%;
   background: #4A1804;
-  margin: 0 auto;
+  margin: 3rem auto;
   position: relative;
 }
 

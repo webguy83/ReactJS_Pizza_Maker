@@ -19,9 +19,9 @@ const Pizza = (props) => {
                   {modifiedIngredients}
                 </div>
             </div>
-            <div className={pizzaGenericStyles.handle}>
+            {/* <div className={pizzaGenericStyles.handle}>
                 <div className={pizzaGenericStyles.handleHole}></div>
-            </div>
+            </div> */}
         </div>
     );
 };

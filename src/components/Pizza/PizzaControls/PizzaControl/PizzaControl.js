@@ -6,7 +6,10 @@ import classNames from 'classnames';
 const PizzaControl = (props) => {
     const {type, purchased} = props;
     return (
-         <button style={{textTransform: "capitalize"}} onClick={props.incredientClick} className={classNames({[styles.ingredientBtn]: true, [styles.ingredientBtnSelected]: purchased })}>{type}</button>
+         <button style={{textTransform: "capitalize"}} 
+                onClick={props.incredientClick} 
+                className={classNames({[styles.ingredientBtn]: true, [styles.ingredientBtnSelected]: purchased })}>{type}
+        </button>
     );
 };
 

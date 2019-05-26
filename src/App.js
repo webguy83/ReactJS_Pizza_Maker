@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './components/Layout/Layout';
+import Layout from './hoc/Layout/Layout';
 
 import './App.css';
 import PizzaMaker from './containers/PizzaMaker/PizzaMaker';

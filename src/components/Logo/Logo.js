@@ -3,11 +3,13 @@ import React from 'react';
 import styles from './Logo.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHamburger } from '@fortawesome/free-solid-svg-icons';
+import { faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
 
-const Logo = () => {
+const Logo = (props) => {
     return (
-        <FontAwesomeIcon icon={faHamburger} className={styles.Logo} />
+        <FontAwesomeIcon icon={faPizzaSlice} 
+                        className={styles.Logo} 
+                        style={props.colour ? { color: props.colour } : { color: "#fff" }} />
     );
 };
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Auxiliary from '../../../hoc/Auxiliary';
+import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import pepperoniStyles from './Pepperoni.module.css';
 import mushroomStyles from './Mushroom.module.css';
 import pineappleStyles from './Pineapple.module.css';

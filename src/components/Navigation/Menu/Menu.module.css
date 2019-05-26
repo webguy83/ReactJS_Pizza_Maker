@@ -1,0 +1,14 @@
+.Menu {
+    cursor: pointer;
+}
+
+.Menu > svg {
+    height: 3rem;
+    width: 3rem !important;
+}
+
+@media (min-width: 500px) {
+    .Menu {
+        display: none;
+    }
+}

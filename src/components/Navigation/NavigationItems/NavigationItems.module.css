@@ -1,0 +1,15 @@
+.NavItems {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+@media (max-width: 499px) {
+    .NavItems {
+        margin-top: 1rem;
+        flex-direction: column;
+    }
+}

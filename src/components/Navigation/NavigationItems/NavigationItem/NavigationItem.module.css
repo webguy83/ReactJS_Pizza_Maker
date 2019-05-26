@@ -1,0 +1,25 @@
+.NavItem {
+    width: 100%;
+    background-color: var(--pizza-pan-colour);
+    padding: 1.45rem 1rem;
+    border-bottom: .4rem solid transparent;
+    cursor: pointer;
+}
+
+.NavItem>a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.NavItem:hover,
+.NavItem:active,
+.NavItem.active {
+    background-color: var(--primary-colour);
+    border-bottom: .4rem solid var(--pepperoni-colour);
+}
+
+@media (min-width: 500px) {
+    .NavItem {
+        width: auto;
+    }
+}

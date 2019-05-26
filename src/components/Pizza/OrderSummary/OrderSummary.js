@@ -1,5 +1,5 @@
 import React from 'react';
-import Auxilary from '../../../hoc/Auxiliary';
+import Auxilary from '../../../hoc/Auxiliary/Auxiliary';
 
 import GenericButton from '../../UI/GenericButton/GenericButton';
 

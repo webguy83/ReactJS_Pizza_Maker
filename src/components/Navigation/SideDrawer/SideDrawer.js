@@ -15,9 +15,7 @@ const SideDrawer = (props) => {
             <Backdrop show={props.open} closeBackdrop={props.closed}/>
             <div className={classNames({[styles.SideDrawer]: true}, {[props.open ? styles.open : styles.close]: true})}>
                 <Logo colour="var(--pizza-pan-colour)" />
-                <nav>
-                    <NavigationItems />
-                </nav>
+                <NavigationItems />
             </div>
         </Auxiliary>
     );

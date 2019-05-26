@@ -11,9 +11,7 @@ const ToolBar = (props) => {
         <header className={styles.ToolBar}>
             <Menu openMenu={props.openMenu} />
             <Logo />
-            <nav className={styles.desktopVersion}>
-                <NavigationItems />
-            </nav>
+            <NavigationItems display="desktop" />
         </header>
     );
 };

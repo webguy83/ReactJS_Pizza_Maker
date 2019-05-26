@@ -13,3 +13,9 @@
         flex-direction: column;
     }
 }
+
+@media (max-width: 499px) {
+    .desktopVersion {
+        display: none;
+    }
+}

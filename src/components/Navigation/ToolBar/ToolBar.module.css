@@ -13,9 +13,3 @@
     align-items: center;
     padding: 0 5rem 0 3rem;
 }
-
-@media (max-width: 499px) {
-    .desktopVersion {
-        display: none;
-    }
-}

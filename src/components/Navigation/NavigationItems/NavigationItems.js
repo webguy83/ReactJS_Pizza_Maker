@@ -3,12 +3,14 @@ import styles from './NavigationItems.module.css';
 
 import NavigationItem from './NavigationItem/NavigationItem';
 
-const NavigationItems = () => {
+const NavigationItems = (props) => {
     return (
-        <ul className={styles.NavItems}>
-            <NavigationItem link="/" text="Pizza Maker" active />
-            <NavigationItem link="/" text="Checkout" />
-        </ul>
+        <nav className={props.display === "desktop" ? styles.desktopVersion : null}>
+            <ul className={styles.NavItems}>
+                <NavigationItem link="/" text="Pizza Maker" active />
+                <NavigationItem link="/" text="Checkout" />
+            </ul>
+        </nav>
     );
 };
 

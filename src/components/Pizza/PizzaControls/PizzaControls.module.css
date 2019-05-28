@@ -4,7 +4,7 @@
     color: #fff;
     font-family: 'ZCOOL KuaiLe', cursive;
     border: .1rem solid var(--pizza-pan-colour);
-    min-width: 52rem;
+    min-width: 22rem;
 }
 
 .pizzaControlBlock {
@@ -48,17 +48,18 @@
     align-items: center;
 }
 
-.subTotalLabel, .totalPriceLabel {
+.subTotalLabel,
+.totalPriceLabel {
     font-size: 1.5rem;
     justify-self: end;
     font-weight: bold;
 }
 
-.totalPrice > strong {
+.totalPrice>strong {
     font-size: 3rem;
 }
 
-.subTotalPrice > strong {
+.subTotalPrice>strong {
     font-size: 2rem;
 }
 

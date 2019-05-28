@@ -1,16 +1,52 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  
+  position: relative;
   line-height: 1.7;
 }
 
+
 html {
   font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 580px) , (max-height: 960px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 450px) , (max-height: 760px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media (max-width: 390px) , (max-height: 700px) {
+  html {
+    font-size: 40%;
+  }
+}
+@media (max-width: 350px) {
+  html {
+    font-size: 35%;
+  }
+}
+
+@media (max-width: 330px) {
+  html {
+    font-size: 30%;
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 :root {

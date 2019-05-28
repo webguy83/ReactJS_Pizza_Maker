@@ -1,5 +1,11 @@
 .Content {
-    margin-top: 5rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+}
+
+@media (orientation: landscape) {
+    .Content {
+        flex-direction: row;
+    }
 }

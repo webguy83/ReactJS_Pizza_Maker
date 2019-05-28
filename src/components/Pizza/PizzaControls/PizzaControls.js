@@ -22,7 +22,7 @@ const PizzaControls = (props) => {
             </div>
             <div className={styles.cart}>
                 <p className={styles.subTotalLabel}>Subtotal :</p>
-                <p className={styles.subTotalPrice}><strong>${subtotalPrice.toFixed(2)}</strong></p>
+                <p className={styles.subTotalPrice}><strong>${subtotalPrice.toFixed(2)} + tax</strong></p>
                 <p className={styles.totalPriceLabel}>Total :</p>
                 <p className={styles.totalPrice}><strong>${totalPriceWithTax.toFixed(2)}</strong></p>
             </div>

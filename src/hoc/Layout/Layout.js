@@ -5,6 +5,7 @@ import ToolBar from '../../components/Navigation/ToolBar/ToolBar';
 
 import styles from './Layout.module.css';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Footer from '../../components/Footer/Footer';
 
 class Layout extends Component {
 
@@ -33,6 +34,7 @@ class Layout extends Component {
                 <main className={styles.Content}>
                     {this.props.children}
                 </main>
+                <Footer />
             </Auxiliary>
         )
     }

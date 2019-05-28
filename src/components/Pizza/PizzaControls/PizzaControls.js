@@ -5,13 +5,13 @@ import styles from './PizzaControls.module.css';
 
 const PizzaControls = (props) => {
     const {subtotalPrice, ingredients, incredientClick} = props;
-    const totalPriceWithTax = subtotalPrice + (subtotalPrice * .12);
+    const totalPriceWithTax = subtotalPrice + (subtotalPrice * .12); // tax rate is 12%
 
     const pizzaControlElems = ingredients.map(ing => {
         const type = ing.type;
-        return <PizzaControl purchased={ing.purchased} incredientClick={() => incredientClick(type)} key={type} type={type} />
+        return <PizzaControl purchased={ing.purchased} incredientClick={() => incredientClick(type)} key={type} type={type} /> // build pizza control btns
     })
-
+    // build the pizza controls
     return (
         <div className={styles.PizzaControls}>
             <div className={styles.pizzaControlBlock}>

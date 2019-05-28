@@ -12,7 +12,7 @@ class PizzaMaker extends Component {
     ingredientPrice = 0.99;
 
     state = {
-        ingredients: this.ingredients.map(ing => {
+        ingredients: this.ingredients.map(ing => { // convert ingredients array to an object form with type and purchased as keys
             return {
                 type: ing,
                 purchased: false
@@ -23,16 +23,16 @@ class PizzaMaker extends Component {
     }
 
     addIngredientHandler = (type) => {
-        const newIngredients = [...this.state.ingredients];
-        const newIngIndex = newIngredients.findIndex(ing => {
+        const newIngredients = [...this.state.ingredients]; // copy ingredients from state
+        const newIngIndex = newIngredients.findIndex(ing => { // find the ingredient item to add or remove
             return ing.type === type;
         });
 
-        newIngredients[newIngIndex].purchased = !newIngredients[newIngIndex].purchased;
+        newIngredients[newIngIndex].purchased = !newIngredients[newIngIndex].purchased; // add or remove the ingredient from the cart
 
         this.setState({
             ingredients: newIngredients,
-            totalPrice: newIngredients[newIngIndex].purchased ? this.state.totalPrice + this.ingredientPrice : this.state.totalPrice - this.ingredientPrice
+            totalPrice: newIngredients[newIngIndex].purchased ? this.state.totalPrice + this.ingredientPrice : this.state.totalPrice - this.ingredientPrice //if incredient is purchased then add to the subtotal price otherwise deduct it from the total
         })
     }
 
@@ -45,7 +45,7 @@ class PizzaMaker extends Component {
     }
 
     continueBtnOrderHandler = () => {
-        console.log("Order continued");
+        alert("This will send data to the DB in the future :)")
     }
 
     render() {

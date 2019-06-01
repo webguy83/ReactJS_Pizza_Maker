@@ -1,0 +1,33 @@
+.Spinner {
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .Spinner:after {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: .6rem;
+    box-sizing: border-box;
+    border: 8.6rem solid var(--pizza-pan-colour);
+    border-color: var(--primary-colour) transparent var(--primary-colour) transparent;
+    animation: Spinner 1.2s infinite;
+  }
+  @keyframes Spinner {
+    0% {
+      transform: rotate(0);
+      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+      transform: rotate(900deg);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+      transform: rotate(1800deg);
+    }
+  }
+  

@@ -10,7 +10,7 @@ import veggieStyles from './Veggie.module.css';
 import oliveStyles from './Olive.module.css';
 
 class PizzaIngredient extends Component {
-
+    
     // render html for all the ingredients to be used, special case for mushrooms as they have slightly different HTML
     renderIngredients = (name, styles, numOfIngredients) => {
         let result = [];

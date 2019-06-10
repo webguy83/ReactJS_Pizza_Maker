@@ -19,28 +19,29 @@ class PizzaMaker extends Component {
         ingredients: null,
         totalPrice: 5.99,
         purchasing: false,
-        purchased: false,
+        orderPurchased: false,
         loading: false,
         error: false
     }
 
     componentDidMount() {
         axios.get('/ingredients.json')
-             .then(res => {
-                 const ingredients = res.data.map(ing => { // convert ingredients array to an object form with type and purchased as keys
+            .then(res => {
+                const ingredients = res.data.map(ing => { // convert ingredients array to an object form with type and purchased as keys
                     return {
                         type: ing,
                         purchased: false
-                    }});
-                 this.setState({
+                    }
+                });
+                this.setState({
                     ingredients: ingredients
-                 })
-             })
-             .catch(() => {
-                 this.setState({
-                     error: true
-                 })
-             })
+                })
+            })
+            .catch(() => {
+                this.setState({
+                    error: true
+                })
+            })
     }
 
     addIngredientHandler = (type) => {
@@ -58,7 +59,7 @@ class PizzaMaker extends Component {
     }
 
     orderHandler = () => {
-        this.setState({ purchasing: true, purchased: false });
+        this.setState({ purchasing: true, orderPurchased: false });
     }
 
     closeBackdropHandler = () => {
@@ -66,41 +67,36 @@ class PizzaMaker extends Component {
     }
 
     continueBtnOrderHandler = () => {
-        this.setState({ loading: true })
-        const order = {
-            ingredients: this.state.ingredients.filter(ing => ing.purchased === true).map(ing => ing.type),
-            totalPrice: this.state.totalPrice + (this.state.totalPrice * .12),
-            customer: {
-                name: "Bob Bagot",
-                address: "32748 43 Know Your Role Blv",
-                postalCode: "90120V"
-            }
-        }
-        axios.post('/orders.json', order)
-            .then(res => {
-                this.setState({ loading: false, purchasing: false, purchased: true });
-            })
-            .catch(err => {
-                this.setState({ loading: false, purchasing: false, purchased: true });
-            });
+        const queryedIngredients = this.state.ingredients.filter(ing => {
+            return ing.purchased === true;
+        }).map(ing => {
+            return ing.type;
+        })
+        queryedIngredients.push("price=" + this.state.totalPrice);
+        const joinedIngredientsAndPrice = queryedIngredients.join("&")
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: "?" + joinedIngredientsAndPrice
+        });
     }
 
     render() {
         let orderSummary = null;
-        let pizza = this.state.error ? <p style={{color: "red", textTransform: "uppercase", fontSize: "3.3rem"}}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
+        let pizza = this.state.error ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
 
-        if(this.state.ingredients) {
+        if (this.state.ingredients) {
             pizza = (<Auxiliary>
                 <Pizza ingredients={this.state.ingredients} />
                 <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
             </Auxiliary>)
-            orderSummary = !this.state.purchased ? <OrderSummary subtotalPrice={this.state.totalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.state.ingredients} /> : null;
+            orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.state.totalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.state.ingredients} /> : null;
         }
 
         if (this.state.loading) {
             orderSummary = <Spinner />;
         }
-        
+
         return (
             <Auxiliary>
                 <Modal closeBackdropHandler={this.closeBackdropHandler} show={this.state.purchasing}>

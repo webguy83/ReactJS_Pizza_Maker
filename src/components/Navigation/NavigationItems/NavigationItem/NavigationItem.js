@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './NavigationItem.module.css';
 
-import classNames from 'classnames';
+import {NavLink} from 'react-router-dom';
 
 const NavigationItem = (props) => {
     return (
-        <li className={classNames({[styles.NavItem] : true, [styles.active] : props.active})} onClick={() => alert("This will lead to somewhere eventually! :)")}>
-            <a href={props.link}>
-               {props.text}
-            </a>
+        <li className={styles.NavItem} onClick={() => console.log("This will lead to somewhere eventually! :)")}>
+            <NavLink to={props.link}
+                     activeClassName={styles.NavItemActive}
+                     exact
+            >{props.text}</NavLink>
         </li>
     );
 };

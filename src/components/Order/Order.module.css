@@ -1,0 +1,15 @@
+.Order {
+    font-size: 1.5rem;
+    box-shadow: .1rem .2rem .3rem #ccc;
+    padding:2rem;
+    margin:1rem 0;
+}
+
+.Order > address {
+    margin: 1rem 0;
+    font-size: 1.7rem;
+}
+
+.ingredientsBlock {
+    margin-bottom: 1rem;
+}

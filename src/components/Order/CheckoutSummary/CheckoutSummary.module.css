@@ -1,0 +1,7 @@
+.CheckoutSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2rem;
+}

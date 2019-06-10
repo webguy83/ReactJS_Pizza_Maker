@@ -8,7 +8,7 @@ const NavigationItems = (props) => {
         <nav className={props.display === "desktop" ? styles.desktopVersion : null}>
             <ul className={styles.NavItems}>
                 <NavigationItem link="/" text="Pizza Maker" active />
-                <NavigationItem link="/" text="Checkout" />
+                <NavigationItem link="/orders" text="Orders" />
             </ul>
         </nav>
     );

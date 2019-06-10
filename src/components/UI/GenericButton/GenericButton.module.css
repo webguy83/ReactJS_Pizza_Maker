@@ -8,6 +8,15 @@
     padding: 1rem;
     margin: 1rem;
     font-weight: bold;
+    font-size: 2.2rem;
+}
+
+.GenericButton:hover,
+.GenericButton:active {
+    color: var(--pizza-pan-colour);
+    background-color: var(--pizza-cheese-colour);
+    transition: all .3s;
+    border-radius: .5rem;
 }
 
 .Success {

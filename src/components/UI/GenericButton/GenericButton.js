@@ -3,8 +3,9 @@ import React from 'react';
 import styles from './GenericButton.module.css';
 
 const GenericButton = (props) => {
+    const { btnType, clicked, children, btnDisabled } = props;
     return (
-        <button className={[styles.GenericButton, styles[props.btnType]].join(' ')} onClick={props.clicked}>{props.children}</button>
+        <button disabled={btnDisabled} className={[styles.GenericButton, styles[btnType]].join(' ')} onClick={clicked}>{children}</button>
     );
 };
 

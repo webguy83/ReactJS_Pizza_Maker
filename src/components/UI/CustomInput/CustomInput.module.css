@@ -1,0 +1,25 @@
+.CustomInput {
+    width: 40rem;
+    margin: .5rem 0;
+}
+
+.CustomInputElement {
+    width: 100%;
+    margin: 0 auto;
+    font:inherit;
+    font-size: 1.5rem;
+    padding: .3rem;
+}
+
+.invalid {
+    background-color: red;
+    color: white;
+}
+
+::placeholder {
+    text-transform: capitalize;
+}
+
+.CustomInputElement:focus {
+    outline: none;
+}

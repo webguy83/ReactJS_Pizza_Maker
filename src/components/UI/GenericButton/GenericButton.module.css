@@ -19,6 +19,13 @@
     border-radius: .5rem;
 }
 
+.GenericButton:disabled {
+    color: lightgrey;
+    background-color: black;
+    opacity: .2;
+    cursor: inherit;
+}
+
 .Success {
     color: #5C9210;
 }

@@ -4,6 +4,9 @@ import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 
 import axios from '../../orders-axios';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
+
 import OrderSummary from '../../components/Pizza/OrderSummary/OrderSummary';
 import Modal from '../../components/UI/Modal/Modal';
 import Pizza from '../../components/Pizza/Pizza';
@@ -13,11 +16,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 class PizzaMaker extends Component {
 
-    ingredientPrice = 0.99;
-
     state = {
-        ingredients: null,
-        totalPrice: 5.99,
         purchasing: false,
         orderPurchased: false,
         loading: false,
@@ -33,9 +32,8 @@ class PizzaMaker extends Component {
                         purchased: false
                     }
                 });
-                this.setState({
-                    ingredients: ingredients
-                })
+                
+                this.props.alterIngredients(ingredients);
             })
             .catch(() => {
                 this.setState({
@@ -45,17 +43,14 @@ class PizzaMaker extends Component {
     }
 
     addIngredientHandler = (type) => {
-        const newIngredients = [...this.state.ingredients]; // copy ingredients from state
+        const newIngredients = [...this.props.ingredients]; // copy ingredients from state
         const newIngIndex = newIngredients.findIndex(ing => { // find the ingredient item to add or remove
             return ing.type === type;
         });
 
         newIngredients[newIngIndex].purchased = !newIngredients[newIngIndex].purchased; // add or remove the ingredient from the cart
-
-        this.setState({
-            ingredients: newIngredients,
-            totalPrice: newIngredients[newIngIndex].purchased ? this.state.totalPrice + this.ingredientPrice : this.state.totalPrice - this.ingredientPrice //if incredient is purchased then add to the subtotal price otherwise deduct it from the total
-        })
+        this.props.alterIngredients(newIngredients);
+        newIngredients[newIngIndex].purchased ? this.props.totalPrice(this.props.getTotalPrice + this.props.getIngredientPrice) : this.props.totalPrice(this.props.getTotalPrice - this.props.getIngredientPrice); //if incredient is purchased then add to the subtotal price otherwise deduct it from the total
     }
 
     orderHandler = () => {
@@ -67,12 +62,12 @@ class PizzaMaker extends Component {
     }
 
     continueBtnOrderHandler = () => {
-        const queryedIngredients = this.state.ingredients.filter(ing => {
+        const queryedIngredients = this.props.ingredients.filter(ing => {
             return ing.purchased === true;
         }).map(ing => {
             return ing.type;
         })
-        queryedIngredients.push("price=" + this.state.totalPrice);
+        queryedIngredients.push("price=" + this.props.getTotalPrice);
         const joinedIngredientsAndPrice = queryedIngredients.join("&")
 
         this.props.history.push({
@@ -85,12 +80,12 @@ class PizzaMaker extends Component {
         let orderSummary = null;
         let pizza = this.state.error ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
 
-        if (this.state.ingredients) {
+        if (this.props.ingredients) {
             pizza = (<Auxiliary>
-                <Pizza ingredients={this.state.ingredients} />
-                <PizzaControls subtotalPrice={this.state.totalPrice} ingredients={this.state.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
+                <Pizza ingredients={this.props.ingredients} />
+                <PizzaControls subtotalPrice={this.props.getTotalPrice} ingredients={this.props.ingredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
             </Auxiliary>)
-            orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.state.totalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.state.ingredients} /> : null;
+            orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.props.getTotalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.props.ingredients} /> : null;
         }
 
         if (this.state.loading) {
@@ -108,4 +103,23 @@ class PizzaMaker extends Component {
     }
 }
 
-export default withErrorHandling(PizzaMaker, axios);
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients,
+        getTotalPrice: state.totalPrice,
+        getIngredientPrice: state.ingredientPrice
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        alterIngredients: (ingredients) => {
+            return dispatch({type: actionTypes.INGREDIENTS, defaultIngredients: ingredients})
+        },
+        totalPrice: (tPrice) => {
+            return dispatch({type: actionTypes.TOTAL_PRICE, totalPrice: tPrice})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandling(PizzaMaker, axios));

@@ -41,7 +41,7 @@ class Orders extends Component {
             return <Order key={orderId} 
                     orderId={orderId} 
                     customerAddress={address} 
-                    customerName={name} 
+                    customerName={name}
                     customerPostalCode={postalCode} 
                     ingredients={ingredients} 
                     totalPrice={"$" + totalPrice.toFixed(2)} />

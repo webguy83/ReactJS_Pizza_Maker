@@ -64,13 +64,6 @@ class PizzaMaker extends Component {
     }
 
     continueBtnOrderHandler = () => {
-        // const purchasedIngredients = this.props.ingredients.filter(ing => {
-        //     return ing.purchased === true;
-        // }).map(ing => {
-        //     return ing.type;
-        // })
-        // this.props.alterIngredients(purchasedIngredients);
-
         this.props.history.push({
             pathname: '/checkout'
         });

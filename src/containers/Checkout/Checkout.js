@@ -26,7 +26,7 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary ingredients={this.props.ingredients} continueClicked={this.continueClicked} cancelClicked={this.cancelClicked} />
-                <Route path={this.props.match.path + "/contact-data-form"} render={(props) => <ContactDataForm  {...props} />} />
+                <Route path={this.props.match.path + "/contact-data-form"} component={ContactDataForm} />
             </div>
         );
     }
@@ -43,11 +43,11 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const MapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients,
         totalPrice: state.totalPrice
     }
 }
 
-export default connect(MapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -4,7 +4,7 @@ import styles from './Order.module.css';
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
 const Order = (props) => {
-    const { orderId, ingredients, totalPrice, customerAddress, customerName, customerPostalCode } = props;
+    const { orderId, ingredients, totalPrice, customerAddress, customerName, customerPostalCode, customerComments } = props;
     const adjustedIngredients = ingredients ? ingredients.map((ing, i) => {
         return <li key={i}>{ing}</li>
     }) : null
@@ -25,6 +25,7 @@ const Order = (props) => {
                 </Auxiliary> : <p>This is a plain ass cheese pizza with no ingredients.</p>}
             </div>
             <p>Total Price: <strong>{totalPrice}</strong></p>
+            <p>{customerComments}</p>
         </div>
     );
 };

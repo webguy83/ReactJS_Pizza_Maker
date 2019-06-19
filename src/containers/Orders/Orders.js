@@ -35,7 +35,7 @@ class Orders extends Component {
 
     render() {
         const orders = this.state.loading ? <Spinner /> : this.state.orders.map(order => {
-            const { address, name, postalCode } = order.data.customerData;
+            const { address, name, postalCode, comments } = order.data.customerData;
             const { ingredients, totalPrice } = order.data;
             const { orderId } = order;
             return <Order key={orderId} 
@@ -43,7 +43,8 @@ class Orders extends Component {
                     customerAddress={address} 
                     customerName={name}
                     customerPostalCode={postalCode} 
-                    ingredients={ingredients} 
+                    ingredients={ingredients}
+                    customerComments={comments}
                     totalPrice={"$" + totalPrice.toFixed(2)} />
         });
 

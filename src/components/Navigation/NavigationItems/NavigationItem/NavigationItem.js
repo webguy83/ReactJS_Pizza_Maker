@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 
 const NavigationItem = (props) => {
     return (
-        <li className={styles.NavItem} onClick={() => console.log("This will lead to somewhere eventually! :)")}>
+        <li className={styles.NavItem}>
             <NavLink to={props.link}
                      activeClassName={styles.NavItemActive}
                      exact

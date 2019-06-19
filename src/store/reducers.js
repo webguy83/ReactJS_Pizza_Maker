@@ -11,7 +11,7 @@ const reducers = (state = initState, action) => {
         case actionTypes.INGREDIENTS:
             return { ...state, ingredients: action.defaultIngredients };
         case actionTypes.TOTAL_PRICE:
-            return { ...state, totalPrice: action.totalPrice }
+            return { ...state, totalPrice: action.totalPrice };
         default:
             return state;
     }

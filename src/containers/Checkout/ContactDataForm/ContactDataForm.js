@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './ContactDataForm.module.css';
 
 import axios from '../../../orders-axios';
+import { connect } from 'react-redux';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import CustomInput from "../../../components/UI/CustomInput/CustomInput";
@@ -122,9 +123,15 @@ class ContactDataForm extends Component {
                 customerData[key] = formData[key].value
             }
 
+            const modifiedIngredients = this.props.ingredients.filter(ingredient => {
+                return ingredient.purchased === true;
+            }).map(ingredient => {
+                return ingredient.type
+            })
+            
             this.setState({ loading: true })
             const order = {
-                ingredients: this.props.ingredients,
+                ingredients: modifiedIngredients,
                 totalPrice: this.props.totalPrice + (this.props.totalPrice * .12),
                 customerData
             }
@@ -153,12 +160,12 @@ class ContactDataForm extends Component {
 
         // check all validation
         let formIsValid = true
-        for(let element in updatedForm){
-            if(updatedForm[element].validation) {
-                if(updatedForm[element].validation.valid === false) {
+        for (let element in updatedForm) {
+            if (updatedForm[element].validation) {
+                if (updatedForm[element].validation.valid === false) {
                     formIsValid = false;
                 }
-            }    
+            }
         }
 
         this.setState({
@@ -208,4 +215,11 @@ class ContactDataForm extends Component {
     }
 }
 
-export default ContactDataForm;
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients,
+        totalPrice: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(ContactDataForm);

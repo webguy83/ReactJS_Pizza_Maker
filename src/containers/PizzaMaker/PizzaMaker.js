@@ -24,6 +24,8 @@ class PizzaMaker extends Component {
     }
 
     componentDidMount() {
+        // this.props.alterIngredients(null);
+        // this.props.totalPrice(5.99);
         axios.get('/ingredients.json')
             .then(res => {
                 const ingredients = res.data.map(ing => { // convert ingredients array to an object form with type and purchased as keys
@@ -62,24 +64,22 @@ class PizzaMaker extends Component {
     }
 
     continueBtnOrderHandler = () => {
-        const queryedIngredients = this.props.ingredients.filter(ing => {
-            return ing.purchased === true;
-        }).map(ing => {
-            return ing.type;
-        })
-        queryedIngredients.push("price=" + this.props.getTotalPrice);
-        const joinedIngredientsAndPrice = queryedIngredients.join("&")
+        // const purchasedIngredients = this.props.ingredients.filter(ing => {
+        //     return ing.purchased === true;
+        // }).map(ing => {
+        //     return ing.type;
+        // })
+        // this.props.alterIngredients(purchasedIngredients);
 
         this.props.history.push({
-            pathname: '/checkout',
-            search: "?" + joinedIngredientsAndPrice
+            pathname: '/checkout'
         });
     }
 
     render() {
         let orderSummary = null;
         let pizza = this.state.error ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
-
+        
         if (this.props.ingredients) {
             pizza = (<Auxiliary>
                 <Pizza ingredients={this.props.ingredients} />

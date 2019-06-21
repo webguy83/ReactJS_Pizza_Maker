@@ -18,29 +18,14 @@ class PizzaMaker extends Component {
 
     state = {
         purchasing: false,
-        orderPurchased: false,
-        loading: false,
-        error: false
+        orderPurchased: false
     }
 
-    // componentDidMount() {
-    //     axios.get('/ingredients.json')
-    //         .then(res => {
-    //             const ingredients = res.data.map(ing => { // convert ingredients array to an object form with type and purchased as keys
-    //                 return {
-    //                     type: ing,
-    //                     purchased: false
-    //                 }
-    //             });
-    //             console.log(ingredients);
-    //             this.props.toggleIngredient(ingredients);
-    //         })
-    //         .catch(() => {
-    //             this.setState({
-    //                 error: true
-    //             })
-    //         })
-    // }
+    componentDidMount() {
+        if(this.props.getIngredients === null) {
+            this.props.initIngredients();
+        }
+    }
 
     addIngredientHandler = (type) => {
         const newIngIndex = this.props.getIngredients.findIndex(ing => { // find the ingredient item to add or remove
@@ -65,7 +50,7 @@ class PizzaMaker extends Component {
 
     render() {
         let orderSummary = null;
-        let pizza = this.state.error ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
+        let pizza = this.props.errorLoadingIngredients ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
 
         if (this.props.getIngredients) {
             pizza = (<Auxiliary>
@@ -73,10 +58,6 @@ class PizzaMaker extends Component {
                 <PizzaControls subtotalPrice={this.props.getTotalPrice} ingredients={this.props.getIngredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
             </Auxiliary>)
             orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.props.getTotalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.props.getIngredients} /> : null;
-        }
-
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
         }
 
         return (
@@ -94,7 +75,7 @@ const mapStateToProps = (state) => {
     return {
         getIngredients: state.ingredients,
         getTotalPrice: state.totalPrice,
-        getIngredientPrice: state.ingredientPrice
+        errorLoadingIngredients: state.errorLoadingIngredients
     }
 }
 
@@ -102,6 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toggleIngredient: (ingredientIndex) => {
             return dispatch(pizzaMakerActionCreators.toggleIngredient(ingredientIndex))
+        },
+        initIngredients: () => {
+            return dispatch(pizzaMakerActionCreators.initIntredients());
         }
     }
 }

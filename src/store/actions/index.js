@@ -1,1 +1,1 @@
-export { toggleIngredient } from '../actions/pizzaMaker';
+export { toggleIngredient, initIntredients } from '../actions/pizzaMaker';

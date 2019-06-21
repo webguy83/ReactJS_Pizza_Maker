@@ -2,17 +2,11 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactDataForm from './ContactDataForm/ContactDataForm';
 
 class Checkout extends Component {
-
-    componentWillUnmount() {
-        this.props.alterIngredients(null);
-        this.props.totalPrice(5.99);
-    }
 
     continueClicked = () => {
         this.props.history.replace('/checkout/contact-data-form')
@@ -32,17 +26,6 @@ class Checkout extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        alterIngredients: (ingredients) => {
-            return dispatch({ type: actionTypes.INGREDIENTS, defaultIngredients: ingredients })
-        },
-        totalPrice: (tPrice) => {
-            return dispatch({ type: actionTypes.TOTAL_PRICE, totalPrice: tPrice })
-        }
-    }
-}
-
 const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients,
@@ -50,4 +33,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps)(Checkout);

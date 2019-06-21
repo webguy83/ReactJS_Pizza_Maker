@@ -1,2 +1,0 @@
-export const INGREDIENTS = "INGREDIENTS";
-export const TOTAL_PRICE = "TOTAL_PRICE";

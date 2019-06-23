@@ -170,15 +170,17 @@ class ContactDataForm extends Component {
 
     render() {
         const formdata = [];
-        for (let key in this.state.formInfo) {
+        const { formInfo } = this.state;
+        for (let key in formInfo) {
+            const { element, config, value, validation, touched } = formInfo[key];
             formdata.push({
                 name: key,
-                elName: this.state.formInfo[key].element,
-                config: this.state.formInfo[key].config,
-                value: this.state.formInfo[key].value,
-                shouldValidate: this.state.formInfo[key].validation,
-                invalid: this.state.formInfo[key].validation ? !this.state.formInfo[key].validation.valid : null,
-                touched: this.state.formInfo[key].touched
+                elName: element,
+                config,
+                value,
+                shouldValidate: validation,
+                invalid: validation ? !validation.valid : null,
+                touched
             })
         };
 

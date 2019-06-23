@@ -77,10 +77,9 @@ export const ordersSuccess = (orders) => {
     }
 }
 
-export const ordersFailed = (error) => {
+export const ordersFailed = () => {
     return {
-        type: actionTypes.ORDERS_FAILED,
-        error
+        type: actionTypes.ORDERS_FAILED
     }
 }
 

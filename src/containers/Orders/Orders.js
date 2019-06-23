@@ -22,7 +22,8 @@ class Orders extends Component {
     }
 
     render() {
-        const orders = this.props.loading ? <Spinner /> : this.props.orders.map(order => {
+        const { orders, loading } = this.props;
+        const ordersOutput = loading ? <Spinner /> : orders.map(order => {
             const { address, name, postalCode, comments } = order.data.customerData;
             const { ingredients, totalPrice } = order.data;
             const { orderId } = order;
@@ -33,22 +34,24 @@ class Orders extends Component {
                 customerPostalCode={postalCode}
                 ingredients={ingredients}
                 customerComments={comments}
-                totalPrice={"$" + totalPrice.toFixed(2)} />
+                totalPrice={"$" + totalPrice.toFixed(2)}
+            />
         });
 
         return (
             <div className={styles.Orders}>
-                {orders}
+                {ordersOutput}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
+    const { orders, error, loading } = state.order;
     return {
-        orders: state.order.orders,
-        error: state.order.error,
-        loading: state.order.loading
+        orders,
+        error,
+        loading
     }
 }
 

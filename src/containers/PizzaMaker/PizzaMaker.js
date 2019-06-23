@@ -22,18 +22,17 @@ class PizzaMaker extends Component {
     }
 
     componentDidMount() {
-        // if(this.props.getIngredients === null) {
-        //     this.props.initIngredients();
-        // }
-        this.props.initIngredients();
-        this.props.purchaseInit();
+        const { initIngredients, purchaseInit } = this.props;
+        initIngredients();
+        purchaseInit();
     }
 
     addIngredientHandler = (type) => {
-        const newIngIndex = this.props.getIngredients.findIndex(ing => { // find the ingredient item to add or remove
+        const { ingredients, toggleIngredient } = this.props;
+        const newIngIndex = ingredients.findIndex(ing => { // find the ingredient item to add or remove
             return ing.type === type;
         });
-        this.props.toggleIngredient(newIngIndex);
+        toggleIngredient(newIngIndex);
     }
 
     orderHandler = () => {
@@ -51,19 +50,32 @@ class PizzaMaker extends Component {
     }
 
     render() {
+        const { ingredients, totalPrice, errorLoadingIngredients } = this.props;
+        const { orderPurchased, purchasing } = this.state;
+        const { closeBackdropHandler, addIngredientHandler, continueBtnOrderHandler, orderHandler } = this;
         let orderSummary = null;
-        let pizza = this.props.errorLoadingIngredients ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
+        let pizza = errorLoadingIngredients ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
 
-        if (this.props.getIngredients) {
-            pizza = (<Auxiliary>
-                <Pizza ingredients={this.props.getIngredients} />
-                <PizzaControls subtotalPrice={this.props.getTotalPrice} ingredients={this.props.getIngredients} incredientClick={this.addIngredientHandler} orderBtnClicked={this.orderHandler} />
-            </Auxiliary>)
-            orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.props.getTotalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.props.getIngredients} /> : null;
+        if (ingredients) {
+            pizza =
+                (<Auxiliary>
+                    <Pizza ingredients={ingredients} />
+                    <PizzaControls subtotalPrice={totalPrice}
+                        ingredients={ingredients}
+                        incredientClick={addIngredientHandler}
+                        orderBtnClicked={orderHandler}
+                    />
+                </Auxiliary>)
+            orderSummary = !orderPurchased ?
+                <OrderSummary subtotalPrice={totalPrice}
+                    continueBtnClick={continueBtnOrderHandler}
+                    cancelBtnClick={closeBackdropHandler}
+                    ingredients={ingredients}
+                /> : null;
         }
         return (
             <Auxiliary>
-                <Modal closeBackdropHandler={this.closeBackdropHandler} show={this.state.purchasing}>
+                <Modal closeBackdropHandler={closeBackdropHandler} show={purchasing}>
                     {orderSummary}
                 </Modal>
                 {pizza}
@@ -73,23 +85,26 @@ class PizzaMaker extends Component {
 }
 
 const mapStateToProps = (state) => {
+    const { ingredients, totalPrice } = state.pizzaMaker;
+    const { errorLoadingIngredients } = state.order;
     return {
-        getIngredients: state.pizzaMaker.ingredients,
-        getTotalPrice: state.pizzaMaker.totalPrice,
-        errorLoadingIngredients: state.order.errorLoadingIngredients
+        ingredients,
+        totalPrice,
+        errorLoadingIngredients
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
+    const { toggleIngredient, initIntredients, purchaseInit } = actions;
     return {
         toggleIngredient: (ingredientIndex) => {
-            return dispatch(actions.toggleIngredient(ingredientIndex))
+            return dispatch(toggleIngredient(ingredientIndex))
         },
         initIngredients: () => {
-            return dispatch(actions.initIntredients());
+            return dispatch(initIntredients());
         },
         purchaseInit: () => {
-            return dispatch(actions.purchaseInit());
+            return dispatch(purchaseInit());
         }
     }
 }

@@ -18,9 +18,17 @@ const reducers = (state = initState, action) => {
             totalPrice = ingredientObj.purchased ? state.totalPrice + state.ingredientPrice : state.totalPrice - state.ingredientPrice;
             return { ...state, ingredients, totalPrice };
         case actionTypes.SET_INGREDIENTS:
-            return { ...state, ingredients: action.ingredients, errorLoadingIngredients: false };
+            return {
+                ...state,
+                ingredients: action.ingredients,
+                errorLoadingIngredients: false,
+                totalPrice: 5.99
+            };
         case actionTypes.ERROR_LOADING_INGREDIENTS:
-            return { ...state, errorLoadingIngredients: true }
+            return {
+                ...state,
+                errorLoadingIngredients: true
+            }
         default:
             return state;
     }

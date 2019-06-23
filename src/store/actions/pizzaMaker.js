@@ -21,7 +21,7 @@ export const initIntredients = () => {
                 dispatch(setIngredients(ingredients))
             })
             .catch(() => {
-                dispatch({type: actionTypes.ERROR_LOADING_INGREDIENTS})
+                dispatch({ type: actionTypes.ERROR_LOADING_INGREDIENTS })
             })
     }
 }

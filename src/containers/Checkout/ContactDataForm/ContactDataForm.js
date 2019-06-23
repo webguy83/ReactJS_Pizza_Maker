@@ -3,6 +3,9 @@ import styles from './ContactDataForm.module.css';
 
 import axios from '../../../orders-axios';
 import { connect } from 'react-redux';
+import withErrorHanding from '../../../hoc/withErrorHandling/withErrorHandling';
+
+import * as actions from '../../../store/actions/index';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import CustomInput from "../../../components/UI/CustomInput/CustomInput";
@@ -79,8 +82,7 @@ class ContactDataForm extends Component {
                 touched: false
             }
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     }
 
     componentDidMount() {
@@ -128,21 +130,13 @@ class ContactDataForm extends Component {
             }).map(ingredient => {
                 return ingredient.type
             })
-            
-            this.setState({ loading: true })
+
             const order = {
                 ingredients: modifiedIngredients,
                 totalPrice: this.props.totalPrice + (this.props.totalPrice * .12),
                 customerData
             }
-            axios.post('/orders.json', order)
-                .then(res => {
-                    this.setState({ loading: false });
-                    this.props.history.push('/');
-                })
-                .catch(err => {
-                    this.setState({ loading: false });
-                });
+            this.props.postOrderToDatabase(order)
         }
     }
 
@@ -203,7 +197,7 @@ class ContactDataForm extends Component {
             {inputs}
             <GenericButton btnType="Success" btnDisabled={!this.state.formIsValid} clicked={this.orderClicked}>Place Your Order!</GenericButton>
         </form>);
-        if (this.state.loading) {
+        if (this.props.loading) {
             order = <Spinner />
         }
         return (
@@ -217,9 +211,18 @@ class ContactDataForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        ingredients: state.pizzaMaker.ingredients,
+        totalPrice: state.pizzaMaker.totalPrice,
+        loading: state.order.loading
     }
 }
 
-export default connect(mapStateToProps)(ContactDataForm);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postOrderToDatabase: (orderData) => {
+            return dispatch(actions.postOrderToDatabase(orderData))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHanding(ContactDataForm, axios));

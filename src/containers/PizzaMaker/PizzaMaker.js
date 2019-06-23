@@ -5,7 +5,7 @@ import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 import axios from '../../orders-axios';
 
 import { connect } from 'react-redux';
-import * as pizzaMakerActionCreators from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 import OrderSummary from '../../components/Pizza/OrderSummary/OrderSummary';
 import Modal from '../../components/UI/Modal/Modal';
@@ -22,9 +22,11 @@ class PizzaMaker extends Component {
     }
 
     componentDidMount() {
-        if(this.props.getIngredients === null) {
-            this.props.initIngredients();
-        }
+        // if(this.props.getIngredients === null) {
+        //     this.props.initIngredients();
+        // }
+        this.props.initIngredients();
+        this.props.purchaseInit();
     }
 
     addIngredientHandler = (type) => {
@@ -59,7 +61,6 @@ class PizzaMaker extends Component {
             </Auxiliary>)
             orderSummary = !this.state.orderPurchased ? <OrderSummary subtotalPrice={this.props.getTotalPrice} continueBtnClick={this.continueBtnOrderHandler} cancelBtnClick={this.closeBackdropHandler} ingredients={this.props.getIngredients} /> : null;
         }
-
         return (
             <Auxiliary>
                 <Modal closeBackdropHandler={this.closeBackdropHandler} show={this.state.purchasing}>
@@ -73,19 +74,22 @@ class PizzaMaker extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        getIngredients: state.ingredients,
-        getTotalPrice: state.totalPrice,
-        errorLoadingIngredients: state.errorLoadingIngredients
+        getIngredients: state.pizzaMaker.ingredients,
+        getTotalPrice: state.pizzaMaker.totalPrice,
+        errorLoadingIngredients: state.order.errorLoadingIngredients
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         toggleIngredient: (ingredientIndex) => {
-            return dispatch(pizzaMakerActionCreators.toggleIngredient(ingredientIndex))
+            return dispatch(actions.toggleIngredient(ingredientIndex))
         },
         initIngredients: () => {
-            return dispatch(pizzaMakerActionCreators.initIntredients());
+            return dispatch(actions.initIntredients());
+        },
+        purchaseInit: () => {
+            return dispatch(actions.purchaseInit());
         }
     }
 }

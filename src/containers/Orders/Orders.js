@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styles from './Orders.module.css';
 
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 import axios from '../../orders-axios';
 import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 
@@ -15,37 +18,22 @@ class Orders extends Component {
     }
 
     componentDidMount() {
-        axios.get('orders.json')
-            .then((res => {
-                const orders = [];
-
-                for (let prop in res.data) {
-                    orders.push({
-                        orderId: prop,
-                        data: res.data[prop]
-                    })
-                }
-
-                this.setState({ loading: false, orders })
-            }))
-            .catch(() => {
-                this.setState({ loading: false })
-            })
+        this.props.loadOrders();
     }
 
     render() {
-        const orders = this.state.loading ? <Spinner /> : this.state.orders.map(order => {
+        const orders = this.props.loading ? <Spinner /> : this.props.orders.map(order => {
             const { address, name, postalCode, comments } = order.data.customerData;
             const { ingredients, totalPrice } = order.data;
             const { orderId } = order;
-            return <Order key={orderId} 
-                    orderId={orderId} 
-                    customerAddress={address} 
-                    customerName={name}
-                    customerPostalCode={postalCode} 
-                    ingredients={ingredients}
-                    customerComments={comments}
-                    totalPrice={"$" + totalPrice.toFixed(2)} />
+            return <Order key={orderId}
+                orderId={orderId}
+                customerAddress={address}
+                customerName={name}
+                customerPostalCode={postalCode}
+                ingredients={ingredients}
+                customerComments={comments}
+                totalPrice={"$" + totalPrice.toFixed(2)} />
         });
 
         return (
@@ -56,4 +44,20 @@ class Orders extends Component {
     }
 }
 
-export default withErrorHandling(Orders, axios);
+const mapStateToProps = (state) => {
+    return {
+        orders: state.order.orders,
+        error: state.order.error,
+        loading: state.order.loading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadOrders: () => {
+            dispatch(actions.getOrdersFromDatabase())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandling(Orders, axios));

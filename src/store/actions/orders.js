@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../orders-axios';
 
-export const orderSuccess = (id, orderData) => {
+export const buyPizzaSuccess = (id, orderData) => {
     return {
-        type: actionTypes.ORDER_SUCCESS,
+        type: actionTypes.BUYPIZZA_SUCCESS,
         payload: {
             id,
             orderData
@@ -11,29 +11,29 @@ export const orderSuccess = (id, orderData) => {
     }
 }
 
-export const orderFailure = (error) => {
+export const buyPizzaFailure = (error) => {
     return {
-        type: actionTypes.ORDER_FAILED,
+        type: actionTypes.BUYPIZZA_FAILED,
         error
     }
 }
 
-export const startOrder = () => {
+export const startBuyPizza = () => {
     return {
-        type: actionTypes.START_ORDER
+        type: actionTypes.BUYPIZZA_START
     }
 }
 
 export const postOrderToDatabase = (orderData) => {
     return (dispatch) => {
-        dispatch(startOrder());
+        dispatch(startBuyPizza());
         axios.post('/orders.json', orderData)
-        .then((res) => {
-            dispatch(orderSuccess(res.data.name, orderData))
-        })
-        .catch(err => {
-            dispatch(orderFailure(err))
-        });
+            .then((res) => {
+                dispatch(buyPizzaSuccess(res.data.name, orderData))
+            })
+            .catch(err => {
+                dispatch(buyPizzaFailure(err))
+            });
     }
 }
 
@@ -42,3 +42,45 @@ export const purchaseInit = () => {
         type: actionTypes.PURCHASE_INIT
     }
 }
+
+export const getOrdersFromDatabase = () => {
+    return (dispatch) => {
+        dispatch(ordersStart());
+        axios.get('orders.json')
+            .then((res => {
+                const orders = [];
+
+                for (let prop in res.data) {
+                    orders.push({
+                        orderId: prop,
+                        data: res.data[prop]
+                    })
+                }
+                dispatch(ordersSuccess(orders));
+            }))
+            .catch((err) => {
+                dispatch(ordersFailed(err));
+            })
+    }
+}
+
+const ordersStart = () => {
+    return {
+        type: actionTypes.ORDERS_START
+    }
+}
+
+export const ordersSuccess = (orders) => {
+    return {
+        type: actionTypes.ORDERS_SUCCESS,
+        orders
+    }
+}
+
+export const ordersFailed = (error) => {
+    return {
+        type: actionTypes.ORDERS_FAILED,
+        error
+    }
+}
+

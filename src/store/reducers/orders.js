@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initState = {
     loading: false,
     orders: [],
-    purchased: false
+    purchased: false,
+    error: false
 }
 
 const reducer = (state = initState, action) => {
@@ -13,15 +14,15 @@ const reducer = (state = initState, action) => {
                 ...state,
                 purchased: false
             }
-        case actionTypes.START_ORDER:
+        case actionTypes.BUYPIZZA_START:
             return {
                 ...state,
                 loading: true
             }
-        case actionTypes.ORDER_SUCCESS:
+        case actionTypes.BUYPIZZA_SUCCESS:
             const data = {
-                id: action.payload.id,
-                ...action.payload.orderData
+                orderId: action.payload.id,
+                data: action.payload.orderData
             }
             return {
                 ...state,
@@ -29,11 +30,28 @@ const reducer = (state = initState, action) => {
                 purchased: true,
                 orders: [...state.orders, data]
             }
-        case actionTypes.ORDER_FAILED:
+        case actionTypes.BUYPIZZA_FAILED:
             return {
                 ...state,
                 loading: false,
                 purchased: true
+            }
+        case actionTypes.ORDERS_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.ORDERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.orders
+            }
+        case actionTypes.ORDERS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
             }
         default:
             return state

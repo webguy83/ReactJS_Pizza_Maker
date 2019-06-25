@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import { API_KEY } from '../../private';
 import axios from 'axios';
 
 export const authStart = () => {
@@ -31,8 +32,8 @@ export const authTimeOutLogOut = (logOutTimer) => {
     return (dispatch) => {
         setTimeout(() => {
             dispatch(authLogout());
-        }, 
-        logOutTimer * 1000);
+        },
+            logOutTimer * 1000);
     }
 }
 
@@ -44,7 +45,7 @@ export const auth = (email, password, signInMode) => {
             password,
             returnSecureToken: true
         }
-        const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/${signInMode ? "verifyPassword" : "signupNewUser"}?key=AIzaSyCMpSwDVzzP7o2BtM6V38wAixR_Zwo8fgI`;
+        const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/${signInMode ? "verifyPassword" : "signupNewUser"}?key=${API_KEY}`;
         axios.post(url, userData)
             .then(res => {
                 dispatch(authSuccess(res.data));

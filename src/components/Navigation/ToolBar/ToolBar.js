@@ -7,11 +7,12 @@ import styles from './ToolBar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
 
 const ToolBar = (props) => {
+    const {openMenu, isAuth} = props;
     return (
         <header className={styles.ToolBar}>
-            <Menu openMenu={props.openMenu} />
+            <Menu openMenu={openMenu} />
             <Logo />
-            <NavigationItems display="desktop" />
+            <NavigationItems isAuth={isAuth} display="desktop" />
         </header>
     );
 };

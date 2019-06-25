@@ -10,12 +10,13 @@ import classNames from 'classnames';
 import styles from './SideDrawer.module.css';
 
 const SideDrawer = (props) => {
+    const {open, closed, isAuth} = props;
     return (
         <Auxiliary>
-            <Backdrop show={props.open} closeBackdrop={props.closed}/>
-            <div className={classNames({[styles.SideDrawer]: true}, {[props.open ? styles.open : styles.close]: true})}>
+            <Backdrop show={open} closeBackdrop={closed}/>
+            <div className={classNames({[styles.SideDrawer]: true}, {[open ? styles.open : styles.close]: true})}>
                 <Logo colour="var(--pizza-pan-colour)" />
-                <NavigationItems />
+                <NavigationItems isAuth={isAuth} />
             </div>
         </Auxiliary>
     );

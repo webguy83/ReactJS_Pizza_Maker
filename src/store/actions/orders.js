@@ -25,9 +25,9 @@ export const startBuyPizza = () => {
 }
 
 export const postOrderToDatabase = (orderData) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(startBuyPizza());
-        axios.post('/orders.json', orderData)
+        axios.post('/orders.json?auth=' + getState().auth.token, orderData)
             .then((res) => {
                 dispatch(buyPizzaSuccess(res.data.name, orderData))
             })
@@ -44,9 +44,9 @@ export const purchaseInit = () => {
 }
 
 export const getOrdersFromDatabase = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(ordersStart());
-        axios.get('orders.json')
+        axios.get('orders.json?auth=' + getState().auth.token)
             .then((res => {
                 const orders = [];
 

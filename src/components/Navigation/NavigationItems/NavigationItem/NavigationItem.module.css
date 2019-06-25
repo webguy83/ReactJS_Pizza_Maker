@@ -12,7 +12,13 @@
     padding: 0 1.2rem;
 }
 
-.NavItem > .NavItemActive {
+.NavItem > a:hover {
+    background-color: var(--primary-colour);
+    border-bottom: .4rem solid var(--pepperoni-colour) !important;
+}
+
+.NavItem > .NavItemActive,
+.NavItem > .NavItemActive:hover {
     background-color: var(--primary-colour);
     border-bottom: .4rem solid var(--pepperoni-colour) !important;
 }

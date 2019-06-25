@@ -25,7 +25,6 @@ const CustomInput = (props) => {
             break;
         case "select":
             inputElement = <select name={label} style={{ margin: "2rem 0" }} className={inputStyles.join(" ")} onChange={handlechange}>
-                <option value="Canada" defaultValue="Canada">Canada</option>
                 {options}
             </select>
             break;

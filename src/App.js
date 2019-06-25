@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 
 import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Orders/Orders';
+import Auth from './containers/Auth/Auth';
 
 import './App.css';
 import PizzaMaker from './containers/PizzaMaker/PizzaMaker';
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" exact component={PizzaMaker} />
           <Route path="/orders" component={Orders} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/auth" component={Auth} />
         </Layout>
   );
 }

@@ -9,15 +9,18 @@
     font:inherit;
     font-size: 1.5rem;
     padding: .3rem;
+    
 }
 
 .invalid {
-    background-color: red;
     color: white;
+    background-color: red;
+    text-transform: capitalize;
 }
 
-::placeholder {
-    text-transform: capitalize;
+.invalid::placeholder  {
+    opacity: 1;
+    color: white;
 }
 
 .CustomInputElement:focus {

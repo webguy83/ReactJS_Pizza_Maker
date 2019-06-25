@@ -1,2 +1,3 @@
-export { toggleIngredient, initIntredients } from '../actions/pizzaMaker';
-export { postOrderToDatabase, purchaseInit, getOrdersFromDatabase } from '../actions/orders';
+export { toggleIngredient, initIntredients } from './pizzaMaker';
+export { postOrderToDatabase, purchaseInit, getOrdersFromDatabase } from './orders';
+export { auth } from './auth';

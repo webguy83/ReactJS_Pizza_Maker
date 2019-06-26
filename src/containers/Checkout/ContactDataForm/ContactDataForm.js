@@ -134,7 +134,8 @@ class ContactDataForm extends Component {
             const order = {
                 ingredients: modifiedIngredients,
                 totalPrice: this.props.totalPrice + (this.props.totalPrice * .12),
-                customerData
+                customerData,
+                userId: this.props.userId
             }
             this.props.postOrderToDatabase(order)
         }
@@ -215,7 +216,8 @@ const mapStateToProps = (state) => {
     return {
         ingredients: state.pizzaMaker.ingredients,
         totalPrice: state.pizzaMaker.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        userId: state.auth.userId
     }
 }
 

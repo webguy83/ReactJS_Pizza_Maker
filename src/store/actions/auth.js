@@ -23,6 +23,8 @@ export const authFailed = (errorMessage) => {
 }
 
 export const authLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -48,11 +50,33 @@ export const auth = (email, password, signInMode) => {
         const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/${signInMode ? "verifyPassword" : "signupNewUser"}?key=${API_KEY}`;
         axios.post(url, userData)
             .then(res => {
+                const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
+                localStorage.setItem('token', res.data.idToken);
+                localStorage.setItem('expirationDate', expirationDate)
+                localStorage.setItem('userId', res.data.localId)
                 dispatch(authSuccess(res.data));
                 dispatch(authTimeOutLogOut(res.data.expiresIn))
             })
             .catch(error => {
                 dispatch(authFailed(error.response.data.error.message));
             })
+    }
+}
+
+export const authCheckStatus = () => {
+    return (dispatch) => {
+        const token = localStorage.getItem('token');
+        if(!token) {
+            dispatch(authLogout());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if(expirationDate > new Date()) {
+                const userId = localStorage.getItem('userId');
+                dispatch(authSuccess(token, userId));
+                dispatch(authTimeOutLogOut((expirationDate.getTime() - new Date().getTime()) / 1000));
+            } else {
+                dispatch(authLogout());
+            }
+        }
     }
 }

@@ -46,7 +46,11 @@ export const purchaseInit = () => {
 export const getOrdersFromDatabase = () => {
     return (dispatch, getState) => {
         dispatch(ordersStart());
-        axios.get('orders.json?auth=' + getState().auth.token)
+        const token = getState().auth.token === undefined ? localStorage.getItem('token') : getState().auth.token;
+        const userId = getState().auth.userId === undefined ? localStorage.getItem('userId') : getState().auth.userId;
+        const params = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+        console.log(getState())
+        axios.get('orders.json' + params)
             .then((res => {
                 const orders = [];
 

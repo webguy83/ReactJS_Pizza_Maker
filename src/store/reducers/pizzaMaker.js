@@ -5,7 +5,8 @@ const initState = {
     ingredients: null,
     ingredientPrice: 0.99,
     totalPrice: 5.99,
-    errorLoadingIngredients: false
+    errorLoadingIngredients: false,
+    purchasingPizza: false
 }
 
 const toggleIngredients = (state, action) => {
@@ -25,14 +26,22 @@ const setIngredients = (state, action) => {
     return updateObjState(state, {
         ingredients: action.ingredients,
         errorLoadingIngredients: false,
-        totalPrice: 5.99
+        totalPrice: 5.99,
+        purchasingPizza: false
     })
 }
 
 const errorLoadingIngredients = (state) => {
     return updateObjState(state, {
-        errorLoadingIngredients: true
+        errorLoadingIngredients: true,
+        purchasingPizza: false
     });
+}
+
+const buyPizzaPurchasing = (state, action) => {
+    return updateObjState(state, {
+        purchasingPizza: action.purchasing
+    })
 }
 
 const reducers = (state = initState, action) => {
@@ -40,6 +49,7 @@ const reducers = (state = initState, action) => {
         case actionTypes.TOGGLE_INGREDIENT: return toggleIngredients(state, action);
         case actionTypes.SET_INGREDIENTS: return setIngredients(state, action);
         case actionTypes.ERROR_LOADING_INGREDIENTS: return errorLoadingIngredients(state);
+        case actionTypes.BUYPIZZA_PURCHASING: return buyPizzaPurchasing(state, action);
         default: return state;
     }
 }

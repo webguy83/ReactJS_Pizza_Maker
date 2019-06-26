@@ -4,6 +4,8 @@ import styles from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 
+import { Redirect } from 'react-router-dom';
+
 import GenericButton from '../../components/UI/GenericButton/GenericButton';
 import CustomInput from '../../components/UI/CustomInput/CustomInput';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -135,8 +137,20 @@ class Auth extends Component {
             <GenericButton type="submit" clicked={this.authClicked} btnType="Success" btnDisabled={!this.state.formIsValid}>Submit</GenericButton>
         </form>) : <Spinner />;
 
+        let reDirect;
+
+        if(this.props.isAuthenticated && this.props.purchasingPizza) {
+            this.props.buyPizzaPurchasing(false);
+            reDirect = <Redirect to="/checkout" />
+        } else if(this.props.isAuthenticated && !this.props.purchasingPizza) {
+            reDirect = <Redirect to="/" />
+        } else {
+            reDirect = null;
+        }
+
         return (
             <div className={styles.Auth}>
+                {reDirect}
                 <h2 className={styles.header}>Authorization Form:</h2>
                 {form}
                 <GenericButton btnType="Failure" clicked={this.switchModes}>{this.state.signInMode ? "Haven't registered? Switch to register now!" : "Switch to Sign In"}</GenericButton>
@@ -146,10 +160,12 @@ class Auth extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { loading, error } = state.auth;
+    const { loading, error, token } = state.auth;
     return {
         loading,
-        error
+        error,
+        purchasingPizza: state.pizzaMaker.purchasingPizza,
+        isAuthenticated: token !== null
     }
 }
 
@@ -157,6 +173,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         authClicked: (email, password, signInMode) => {
             return dispatch(actions.auth(email, password, signInMode));
+        },
+        buyPizzaPurchasing: (purchasing) => {
+            return dispatch(actions.buyPizzaPurchasing(purchasing))
         }
     }
 }

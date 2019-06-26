@@ -8,6 +8,10 @@ export const setIngredients = (ingredients) => {
     return { type: actionTypes.SET_INGREDIENTS, ingredients }
 }
 
+export const buyPizzaPurchasing = (purchasing) => {
+    return { type: actionTypes.BUYPIZZA_PURCHASING, purchasing }
+}
+
 export const initIntredients = () => {
     return (dispatch) => {
         axios.get('/ingredients.json')

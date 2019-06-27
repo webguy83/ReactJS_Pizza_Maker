@@ -10,7 +10,7 @@ import GenericButton from '../../components/UI/GenericButton/GenericButton';
 import CustomInput from '../../components/UI/CustomInput/CustomInput';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import { removeUnderscoreForSpace } from '../../utils/utility';
+import { removeUnderscoreForSpace, checkIsValid, updateObjState } from '../../utils/utility';
 
 class Auth extends Component {
     state = {
@@ -45,32 +45,18 @@ class Auth extends Component {
         signInMode: true
     }
 
-    checkIsValid = (value, rules) => {
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== "" && isValid;
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-    }
-
     handleInputChange = (e) => {
         const name = e.target.name;
         const updatedForm = { ...this.state.formInfo };
-        const updatedElement = { ...updatedForm[name] };
-        const updatedValidaton = { ...updatedElement.validation };
 
-        updatedElement.value = e.target.value;
-        updatedValidaton.valid = this.checkIsValid(e.target.value, updatedValidaton)
-        updatedElement.touched = true;
-        updatedElement.validation = updatedValidaton;
+        const updatedElement = updateObjState(updatedForm[name], {
+            value: e.target.value,
+            touched: true,
+            validation: updateObjState(updatedForm[name].validation, {
+                valid: checkIsValid(e.target.value, updatedForm[name].validation)
+            })
+        })
+       
         updatedForm[name] = updatedElement;
 
         // check all validation

@@ -27,7 +27,8 @@ export const startBuyPizza = () => {
 export const postOrderToDatabase = (orderData) => {
     return (dispatch, getState) => {
         dispatch(startBuyPizza());
-        axios.post('/orders.json?auth=' + getState().auth.token, orderData)
+        const token = getState().auth.token === undefined ? localStorage.getItem('token') : getState().auth.token;
+        axios.post('/orders.json?auth=' + token, orderData)
             .then((res) => {
                 dispatch(buyPizzaSuccess(res.data.name, orderData))
             })
@@ -49,7 +50,6 @@ export const getOrdersFromDatabase = () => {
         const token = getState().auth.token === undefined ? localStorage.getItem('token') : getState().auth.token;
         const userId = getState().auth.userId === undefined ? localStorage.getItem('userId') : getState().auth.userId;
         const params = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-        console.log(getState())
         axios.get('orders.json' + params)
             .then((res => {
                 const orders = [];

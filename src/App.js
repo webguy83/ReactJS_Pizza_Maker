@@ -5,15 +5,26 @@ import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
-import Checkout from './containers/Checkout/Checkout';
-import Orders from './containers/Orders/Orders';
-import Auth from './containers/Auth/Auth';
+import LazyLoader from './hoc/LazyLoader/LazyLoader';
+
 import Logout from './containers/Auth/Logout/Logout';
 
 import Auxiliary from './hoc/Auxiliary/Auxiliary';
 
 import './App.css';
 import PizzaMaker from './containers/PizzaMaker/PizzaMaker';
+
+const LazyLoaderOrders = LazyLoader(() => {
+  return import('./containers/Orders/Orders');
+});
+
+const LazyLoaderAuth = LazyLoader(() => {
+  return import('./containers/Auth/Auth');
+})
+
+const LazyLoaderCheckout = LazyLoader(() => {
+  return import('./containers/Checkout/Checkout');
+})
 
 class App extends Component {
 
@@ -25,10 +36,10 @@ class App extends Component {
     return (
       <Layout>
         <Route path="/" exact component={PizzaMaker} />
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" component={LazyLoaderAuth} />
         {this.props.isAuthenticated ? <Auxiliary>
-          <Route path="/orders" component={Orders} />
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={LazyLoaderOrders} />
+          <Route path="/checkout" component={LazyLoaderCheckout} />
           <Route path="/logout" component={Logout} />
         </Auxiliary> : null}
       </Layout>

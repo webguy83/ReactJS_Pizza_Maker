@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import withErrorHanding from '../../../hoc/withErrorHandling/withErrorHandling';
 
 import * as actions from '../../../store/actions/index';
+import { checkIsValid, updateObjState } from '../../../utils/utility';
 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import CustomInput from "../../../components/UI/CustomInput/CustomInput";
@@ -70,6 +71,9 @@ class ContactDataForm extends Component {
                 config: {
                     options: []
                 },
+                validation: {
+                    required: false
+                },
                 value: ""
             },
             comments: {
@@ -79,6 +83,9 @@ class ContactDataForm extends Component {
                     cols: 50
                 },
                 value: "",
+                validation: {
+                    required: false
+                },
                 touched: false
             }
         },
@@ -98,22 +105,6 @@ class ContactDataForm extends Component {
             .catch(err => console.log(err));
     }
 
-    checkIsValid = (value, rules) => {
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== "" && isValid;
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-    }
-
     orderClicked = (e) => {
         e.preventDefault();
 
@@ -131,11 +122,13 @@ class ContactDataForm extends Component {
                 return ingredient.type
             })
 
+            const userId = this.props.userId ? this.props.userId : localStorage.getItem('userId');
+
             const order = {
                 ingredients: modifiedIngredients,
                 totalPrice: this.props.totalPrice + (this.props.totalPrice * .12),
                 customerData,
-                userId: this.props.userId
+                userId
             }
             this.props.postOrderToDatabase(order)
         }
@@ -144,13 +137,15 @@ class ContactDataForm extends Component {
     handleInputChange = (e) => {
         const name = e.target.name;
         const updatedForm = { ...this.state.formInfo };
-        const updatedElement = { ...updatedForm[name] };
-        const updatedValidaton = { ...updatedElement.validation };
+        
+        const updatedElement = updateObjState(updatedForm[name], {
+            value: e.target.value,
+            touched: true,
+            validation: updateObjState(updatedForm[name].validation, {
+                valid: checkIsValid(e.target.value, updatedForm[name].validation)
+            })
+        })
 
-        updatedElement.value = e.target.value;
-        updatedValidaton.valid = this.checkIsValid(e.target.value, updatedValidaton)
-        updatedElement.touched = true;
-        updatedElement.validation = updatedValidaton;
         updatedForm[name] = updatedElement;
 
         // check all validation

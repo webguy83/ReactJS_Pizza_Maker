@@ -1,4 +1,4 @@
-Online version can be seen here: https://awesome-blackwell-3c205f.netlify.com/
+Online version can be seen here: https://awesome-blackwell-3c205f.netlify.com/ and https://pizza-maker-380a0.firebaseapp.com/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

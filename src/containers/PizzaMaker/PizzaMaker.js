@@ -14,7 +14,7 @@ import PizzaControls from '../../components/Pizza/PizzaControls/PizzaControls';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-class PizzaMaker extends Component {
+export class PizzaMaker extends Component {
 
     state = {
         orderPurchased: false

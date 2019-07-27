@@ -60,9 +60,7 @@ class ContactDataForm extends Component {
                 value: "",
                 validation: {
                     valid: false,
-                    required: true,
-                    minLength: 6,
-                    maxLength: 6
+                    required: true
                 },
                 touched: false
             },
@@ -131,6 +129,9 @@ class ContactDataForm extends Component {
                 userId
             }
             this.props.postOrderToDatabase(order)
+            this.props.history.push({
+                pathname: '/orders'
+            });
         }
     }
 

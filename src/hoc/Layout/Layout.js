@@ -32,7 +32,7 @@ class Layout extends Component {
         return (
             <Auxiliary>
                 <ToolBar isAuth={isAuthenticated} openMenu={this.openSideDrawerHandle} />
-                <SideDrawer isAuth={isAuthenticated} open={this.state.showSideDrawer} closed={this.openSideDrawerHandle} />
+                <SideDrawer isAuth={isAuthenticated} open={this.state.showSideDrawer} closed={this.closeSideDrawerHandle} />
                 <main className={styles.Content}>
                     {children}
                 </main>

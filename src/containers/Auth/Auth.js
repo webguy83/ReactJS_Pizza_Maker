@@ -35,7 +35,6 @@ class Auth extends Component {
                 value: "",
                 validation: {
                     valid: false,
-                    minLength: 6,
                     required: true
                 },
                 touched: false
@@ -138,6 +137,7 @@ class Auth extends Component {
             <div className={styles.Auth}>
                 {reDirect}
                 <h2 className={styles.header}>Authorization Form:</h2>
+                <p style={{fontSize: "1.5rem", maxWidth: "40rem", marginBottom: "1rem"}}>For testing purposes feel free to login as: <span style={{fontWeight: "bold"}}>admin@admin.com</span> and password <span style={{fontWeight: "bold"}}>theadmin</span> or just register a new email and password.</p>
                 {form}
                 <GenericButton btnType="Failure" clicked={this.switchModes}>{this.state.signInMode ? "Haven't registered? Switch to register now!" : "Switch to Sign In"}</GenericButton>
             </div>

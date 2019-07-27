@@ -15,7 +15,7 @@ const SideDrawer = (props) => {
         <Auxiliary>
             <Backdrop show={open} closeBackdrop={closed}/>
             <div className={classNames({[styles.SideDrawer]: true}, {[open ? styles.open : styles.close]: true})}>
-                <Logo colour="var(--pizza-pan-colour)" />
+                <Logo colour="white" />
                 <NavigationItems isAuth={isAuth} />
             </div>
         </Auxiliary>

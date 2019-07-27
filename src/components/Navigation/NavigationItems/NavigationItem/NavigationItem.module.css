@@ -3,6 +3,12 @@
     margin: 0 1rem;
 }
 
+@media (max-width: 499px) {
+    .NavItem {
+        width: 100%;
+    }
+}
+
 .NavItem > a {
     display: inline-block;
     line-height: 3.8;
@@ -12,15 +18,21 @@
     padding: 0 1.2rem;
 }
 
+@media (max-width: 499px) {
+    .NavItem > a {
+        width: 100%;
+    }
+}
+
 .NavItem > a:hover {
     background-color: var(--primary-colour);
-    border-bottom: .4rem solid var(--pepperoni-colour) !important;
+    border-bottom: .4rem solid var(--pepperoni-colour);
 }
 
 .NavItem > .NavItemActive,
 .NavItem > .NavItemActive:hover {
     background-color: var(--primary-colour);
-    border-bottom: .4rem solid var(--pepperoni-colour) !important;
+    border-bottom: .4rem solid var(--pepperoni-colour);
 }
 
 @media (min-width: 500px) {

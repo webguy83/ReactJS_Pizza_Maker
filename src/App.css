@@ -16,12 +16,21 @@ html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
-/* 
-@media (max-width: 580px) , (max-height: 960px) {
+
+@media (max-width: 450px)  , (max-height: 320px) {
   html {
     font-size: 50%;
   }
 }
+
+
+@media (max-height: 320px), (max-width: 320px) {
+  html {
+    font-size: 45%;
+  }
+}
+/* 
+
 
 @media (max-width: 450px) , (max-height: 760px) {
   html {

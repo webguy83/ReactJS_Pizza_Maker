@@ -2,7 +2,6 @@
     background-color: #E09B31;
     padding: 0 2rem;
     color: #fff;
-    font-family: 'ZCOOL KuaiLe', cursive;
     border: .1rem solid var(--pizza-pan-colour);
     min-width: 22rem;
 }
@@ -22,7 +21,6 @@
 .chooseHeading {
     margin-top: 1.5rem;
     font-size: 1.8rem;
-    font-family: 'Raleway', sans-serif;
     font-weight: 700;
 }
 
@@ -35,7 +33,6 @@
 }
 
 .cart {
-    font-family: 'Raleway', sans-serif;
     margin-top: 1.5rem;
     background-color: #fff;
     color: var(--pizza-pan-colour);

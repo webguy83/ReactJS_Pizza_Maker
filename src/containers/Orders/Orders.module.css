@@ -1,3 +1,9 @@
 .Orders {
     width: 80%;
+    align-self: center;
+}
+
+.ordersHeader {
+    text-align: center;
+    font-size: 3.5rem;
 }

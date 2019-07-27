@@ -40,6 +40,7 @@ class Orders extends Component {
 
         return (
             <div className={styles.Orders}>
+                <h1 className={styles.ordersHeader}>{orders.length > 0 ? "Here are your orders!" : !loading ? "You currently don't have any orders. Please order some of your tasty pizza and come back to check our orders here!" : null}</h1>
                 {ordersOutput}
             </div>
         );

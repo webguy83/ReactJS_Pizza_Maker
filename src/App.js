@@ -1,51 +1,51 @@
-import React, { Component } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import Layout from './hoc/Layout/Layout';
 
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
-import LazyLoader from './hoc/LazyLoader/LazyLoader';
-
 import Logout from './containers/Auth/Logout/Logout';
-
-import Auxiliary from './hoc/Auxiliary/Auxiliary';
+import Spinner from './components/UI/Spinner/Spinner';
 
 import './App.css';
 import PizzaMaker from './containers/PizzaMaker/PizzaMaker';
 
-const LazyLoaderOrders = LazyLoader(() => {
+const Orders = React.lazy(() => {
   return import('./containers/Orders/Orders');
 });
 
-const LazyLoaderAuth = LazyLoader(() => {
+const Auth = React.lazy(() => {
   return import('./containers/Auth/Auth');
 })
 
-const LazyLoaderCheckout = LazyLoader(() => {
+const Checkout = React.lazy(() => {
   return import('./containers/Checkout/Checkout');
 })
 
-class App extends Component {
+const App = (props) => {
 
-  componentDidMount() {
-    this.props.autoSignUp();
-  }
+  const { autoSignUp, isAuthenticated } = props;
 
-  render() {
-    return (
-      <Layout>
+  useEffect(() => {
+    autoSignUp();
+  }, [autoSignUp])
+
+  return (
+    <Layout>
+      <Suspense fallback={<Spinner />}>
         <Route path="/" exact component={PizzaMaker} />
-        <Route path="/auth" component={LazyLoaderAuth} />
-        {this.props.isAuthenticated ? <Auxiliary>
-          <Route path="/orders" component={LazyLoaderOrders} />
-          <Route path="/checkout" component={LazyLoaderCheckout} />
+        <Route path="/auth" render={(props) => <Auth {...props} />} />
+        {isAuthenticated ? <>
+          <Route path="/orders" render={(props) => <Orders {...props} />} />
+          <Route path="/checkout" render={(props) => <Checkout {...props} />} />
           <Route path="/logout" component={Logout} />
-        </Auxiliary> : null}
-      </Layout>
-    );
-  }
+        </> : null}
+      </Suspense>
+    </Layout>
+  );
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

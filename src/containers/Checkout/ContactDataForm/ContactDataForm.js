@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ContactDataForm.module.css';
 
 import axios from '../../../orders-axios';
@@ -12,133 +12,133 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import CustomInput from "../../../components/UI/CustomInput/CustomInput";
 import GenericButton from '../../../components/UI/GenericButton/GenericButton';
 
-class ContactDataForm extends Component {
+const ContactDataForm = (props) => {
 
-    state = {
-        formInfo: {
-            name: {
-                element: "input",
-                config: {
-                    type: "text"
-                },
-                value: "",
-                validation: {
-                    valid: false,
-                    required: true
-                },
-                touched: false
+    const [formInfo, setFormInfo] = useState({
+        name: {
+            element: "input",
+            config: {
+                type: "text"
             },
-            email: {
-                element: "input",
-                config: {
-                    type: "email"
-                },
-                value: "",
-                validation: {
-                    valid: false,
-                    required: true
-                },
-                touched: false
+            value: "",
+            validation: {
+                valid: false,
+                required: true
             },
-            street: {
-                element: "input",
-                config: {
-                    type: "text"
-                },
-                value: "",
-                validation: {
-                    valid: false,
-                    required: true
-                },
-                touched: false
-            },
-            postalCode: {
-                element: "input",
-                config: {
-                    type: "text"
-                },
-                value: "",
-                validation: {
-                    valid: false,
-                    required: true
-                },
-                touched: false
-            },
-            country: {
-                element: "select",
-                config: {
-                    options: []
-                },
-                validation: {
-                    required: false
-                },
-                value: ""
-            },
-            comments: {
-                element: "textarea",
-                config: {
-                    rows: 4,
-                    cols: 50
-                },
-                value: "",
-                validation: {
-                    required: false
-                },
-                touched: false
-            }
+            touched: false
         },
-        formIsValid: false
-    }
+        email: {
+            element: "input",
+            config: {
+                type: "email"
+            },
+            value: "",
+            validation: {
+                valid: false,
+                required: true
+            },
+            touched: false
+        },
+        street: {
+            element: "input",
+            config: {
+                type: "text"
+            },
+            value: "",
+            validation: {
+                valid: false,
+                required: true
+            },
+            touched: false
+        },
+        postalCode: {
+            element: "input",
+            config: {
+                type: "text"
+            },
+            value: "",
+            validation: {
+                valid: false,
+                required: true
+            },
+            touched: false
+        },
+        country: {
+            element: "select",
+            config: {
+                options: []
+            },
+            validation: {
+                required: false
+            },
+            value: ""
+        },
+        comments: {
+            element: "textarea",
+            config: {
+                rows: 4,
+                cols: 50
+            },
+            value: "",
+            validation: {
+                required: false
+            },
+            touched: false
+        }
+    });
 
-    componentDidMount() {
+    const [formIsValid, setFormIsValid] = useState(false);
+
+    useEffect(() => {
         axios.get('https://restcountries.eu/rest/v2/all')
             .then(countries => {
                 const listOfCountries = countries.data.map(item => {
                     return item.name;
                 })
-                this.setState((prevState) => {
-                    return prevState.formInfo.country.config.options = listOfCountries;
-                })
+                const updatedForm = {...formInfo};
+                updatedForm.country.config.options = listOfCountries;
+                setFormInfo(updatedForm);
             })
             .catch(err => console.log(err));
-    }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    orderClicked = (e) => {
+    const orderClicked = (e) => {
         e.preventDefault();
 
-        if (this.state.formIsValid) {
-            const formData = this.state.formInfo;
+        if (formIsValid) {
+            const formData = formInfo;
 
             const customerData = {};
             for (let key in formData) {
                 customerData[key] = formData[key].value
             }
 
-            const modifiedIngredients = this.props.ingredients.filter(ingredient => {
+            const modifiedIngredients = props.ingredients.filter(ingredient => {
                 return ingredient.purchased === true;
             }).map(ingredient => {
                 return ingredient.type
             })
 
-            const userId = this.props.userId ? this.props.userId : localStorage.getItem('userId');
+            const userId = props.userId ? props.userId : localStorage.getItem('userId');
 
             const order = {
                 ingredients: modifiedIngredients,
-                totalPrice: this.props.totalPrice + (this.props.totalPrice * .12),
+                totalPrice: props.totalPrice + (props.totalPrice * .12),
                 customerData,
                 userId
             }
-            this.props.postOrderToDatabase(order)
-            this.props.history.push({
+            props.postOrderToDatabase(order)
+            props.history.push({
                 pathname: '/orders'
             });
         }
     }
 
-    handleInputChange = (e) => {
+    const handleInputChange = (e) => {
         const name = e.target.name;
-        const updatedForm = { ...this.state.formInfo };
-        
+        const updatedForm = { ...formInfo };
+
         const updatedElement = updateObjState(updatedForm[name], {
             value: e.target.value,
             touched: true,
@@ -159,53 +159,48 @@ class ContactDataForm extends Component {
             }
         }
 
-        this.setState({
-            formInfo: updatedForm,
-            formIsValid
+        setFormInfo(updatedForm);
+        setFormIsValid(formIsValid);
+    }
+
+    const formdata = [];
+    for (let key in formInfo) {
+        const { element, config, value, validation, touched } = formInfo[key];
+        formdata.push({
+            name: key,
+            elName: element,
+            config,
+            value,
+            shouldValidate: validation,
+            invalid: validation ? !validation.valid : null,
+            touched
         })
-    }
+    };
 
-    render() {
-        const formdata = [];
-        const { formInfo } = this.state;
-        for (let key in formInfo) {
-            const { element, config, value, validation, touched } = formInfo[key];
-            formdata.push({
-                name: key,
-                elName: element,
-                config,
-                value,
-                shouldValidate: validation,
-                invalid: validation ? !validation.valid : null,
-                touched
-            })
-        };
-
-        const inputs = formdata.map(item => {
-            return <CustomInput key={item.name}
-                label={item.name}
-                elname={item.elName}
-                config={item.config}
-                value={item.value}
-                handlechange={this.handleInputChange}
-                invalid={item.invalid}
-                shouldValidate={item.shouldValidate}
-                touched={item.touched} />
-        });
-        let order = (<form className={styles.form}>
-            {inputs}
-            <GenericButton btnType="Success" btnDisabled={!this.state.formIsValid} clicked={this.orderClicked}>Place Your Order!</GenericButton>
-        </form>);
-        if (this.props.loading) {
-            order = <Spinner />
-        }
-        return (
-            <div className={styles.ContactDataForm}>
-                <h2 className={styles.header}>Contact Form:</h2>
-                {order}
-            </div>
-        );
+    const inputs = formdata.map(item => {
+        return <CustomInput key={item.name}
+            label={item.name}
+            elname={item.elName}
+            config={item.config}
+            value={item.value}
+            handlechange={handleInputChange}
+            invalid={item.invalid}
+            shouldValidate={item.shouldValidate}
+            touched={item.touched} />
+    });
+    let order = (<form className={styles.form}>
+        {inputs}
+        <GenericButton btnType="Success" btnDisabled={!formIsValid} clicked={orderClicked}>Place Your Order!</GenericButton>
+    </form>);
+    if (props.loading) {
+        order = <Spinner />
     }
+    return (
+        <div className={styles.ContactDataForm}>
+            <h2 className={styles.header}>Contact Form:</h2>
+            {order}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

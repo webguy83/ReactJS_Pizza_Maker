@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
+import React, { useState, useEffect } from 'react';
 import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 
 import axios from '../../orders-axios';
@@ -14,84 +13,79 @@ import PizzaControls from '../../components/Pizza/PizzaControls/PizzaControls';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-export class PizzaMaker extends Component {
+const PizzaMaker = (props) => {
 
-    state = {
-        orderPurchased: false
-    }
+    const [orderPurchased, setOrderPurchased] = useState(false);
+    const { initIngredients, purchaseInit, buyPizzaPurchasing, ingredients, totalPrice, errorLoadingIngredients, isAuthenticated, purchasingPizza } = props;
 
-    componentDidMount() {
-        const { initIngredients, purchaseInit, buyPizzaPurchasing } = this.props;
+    let orderSummary = null;
+    let pizza = errorLoadingIngredients ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
+
+    useEffect(() => {
         buyPizzaPurchasing(false);
         initIngredients();
         purchaseInit();
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    addIngredientHandler = (type) => {
-        const { ingredients, toggleIngredient } = this.props;
+    const addIngredientHandler = (type) => {
+        const { toggleIngredient } = props;
         const newIngIndex = ingredients.findIndex(ing => { // find the ingredient item to add or remove
             return ing.type === type;
         });
         toggleIngredient(newIngIndex);
     }
 
-    orderHandler = () => {
-        this.props.buyPizzaPurchasing(true)
-        if (this.props.isAuthenticated) {
-            this.setState({ orderPurchased: false })
+    const orderHandler = () => {
+        buyPizzaPurchasing(true)
+        if (props.isAuthenticated) {
+            setOrderPurchased(false);
         } else {
-            this.props.history.push("/auth");
+            props.history.push("/auth");
         }
     }
 
-    closeBackdropHandler = () => {
-        this.props.buyPizzaPurchasing(false)
+    const closeBackdropHandler = () => {
+        buyPizzaPurchasing(false)
     }
 
-    continueBtnOrderHandler = () => {
-        this.props.history.push({
+    const continueBtnOrderHandler = () => {
+        props.history.push({
             pathname: '/checkout'
         });
     }
 
-    render() {
-        const { ingredients, totalPrice, errorLoadingIngredients, isAuthenticated, purchasingPizza } = this.props;
-        const { orderPurchased } = this.state;
-        const { closeBackdropHandler, addIngredientHandler, continueBtnOrderHandler, orderHandler } = this;
-        let orderSummary = null;
-        let pizza = errorLoadingIngredients ? <p style={{ color: "red", textTransform: "uppercase", fontSize: "3.3rem" }}>Sorry the ingredients failed to load for you. Contact me asap! Arghhhh.</p> : <Spinner />;
-
-        if (ingredients) {
-            pizza =
-                (<Auxiliary>
-                    <Pizza ingredients={ingredients} />
-                    <PizzaControls subtotalPrice={totalPrice}
-                        ingredients={ingredients}
-                        incredientClick={addIngredientHandler}
-                        orderBtnClicked={orderHandler}
-                        isAuth={isAuthenticated}
-                    />
-                </Auxiliary>)
-            orderSummary = !orderPurchased ?
-                <OrderSummary subtotalPrice={totalPrice}
-                    continueBtnClick={continueBtnOrderHandler}
-                    cancelBtnClick={closeBackdropHandler}
+    if (ingredients) {
+        pizza =
+            (<>
+                <Pizza ingredients={ingredients} />
+                <PizzaControls subtotalPrice={totalPrice}
                     ingredients={ingredients}
-                /> : null;
-        }
-        return (
-            <Auxiliary>
-                <Modal closeBackdropHandler={closeBackdropHandler} show={purchasingPizza}>
-                    {orderSummary}
-                </Modal>
-                {pizza}
-            </Auxiliary>
-        );
+                    incredientClick={addIngredientHandler}
+                    orderBtnClicked={orderHandler}
+                    isAuth={isAuthenticated}
+                />
+            </>)
+        orderSummary = !orderPurchased ?
+            <OrderSummary subtotalPrice={totalPrice}
+                continueBtnClick={continueBtnOrderHandler}
+                cancelBtnClick={closeBackdropHandler}
+                ingredients={ingredients}
+            /> : null;
     }
+    return (
+        <>
+            <Modal closeBackdropHandler={closeBackdropHandler} show={purchasingPizza}>
+                {orderSummary}
+            </Modal>
+            {pizza}
+        </>
+    );
+
 }
 
 const mapStateToProps = (state) => {
-    const { ingredients, totalPrice, purchasingPizza } = state.pizzaMaker;
+    const { totalPrice, purchasingPizza, ingredients } = state.pizzaMaker;
     const { errorLoadingIngredients } = state.order;
     const { token } = state.auth;
     return {

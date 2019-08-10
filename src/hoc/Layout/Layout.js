@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Auxiliary from '../Auxiliary/Auxiliary';
+import React, { useState } from 'react';
 
 import ToolBar from '../../components/Navigation/ToolBar/ToolBar';
 
@@ -9,37 +8,29 @@ import styles from './Layout.module.css';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 import Footer from '../../components/Footer/Footer';
 
-class Layout extends Component {
+const Layout = (props) => {
 
-    state = {
-        showSideDrawer: false
+    const [showSideDrawer, setShowSideDrawer] = useState(false);
+    const { children, isAuthenticated } = props;
+
+    const closeSideDrawerHandle = () => {
+        setShowSideDrawer(false)
     }
 
-    closeSideDrawerHandle = () => {
-        this.setState({
-            showSideDrawer: false
-        })
+    const openSideDrawerHandle = () => {
+        setShowSideDrawer(true)
     }
 
-    openSideDrawerHandle = () => {
-        this.setState({
-            showSideDrawer: true
-        })
-    }
-
-    render() {
-        const { children, isAuthenticated } = this.props;
-        return (
-            <Auxiliary>
-                <ToolBar isAuth={isAuthenticated} openMenu={this.openSideDrawerHandle} />
-                <SideDrawer isAuth={isAuthenticated} open={this.state.showSideDrawer} closed={this.closeSideDrawerHandle} />
-                <main className={styles.Content}>
-                    {children}
-                </main>
-                <Footer />
-            </Auxiliary>
-        )
-    }
+    return (
+        <>
+            <ToolBar isAuth={isAuthenticated} openMenu={openSideDrawerHandle} />
+            <SideDrawer isAuth={isAuthenticated} open={showSideDrawer} closed={closeSideDrawerHandle} />
+            <main className={styles.Content}>
+                {children}
+            </main>
+            <Footer />
+        </>
+    )
 };
 
 const mapStateToProps = (state) => {

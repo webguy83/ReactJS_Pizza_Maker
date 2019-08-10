@@ -1,5 +1,4 @@
 import React from 'react';
-import Auxilary from '../../../hoc/Auxiliary/Auxiliary';
 
 import GenericButton from '../../UI/GenericButton/GenericButton';
 
@@ -14,7 +13,7 @@ const OrderSummary = (props) => {
     })
 
     return (
-        <Auxilary>
+        <>
             <h3>Order Summary</h3>
             <p>You currently have ordered <strong>{filteredIngredients.length}</strong> ingredients to go along with your base pizza with cheese.</p>
             <ul>
@@ -23,7 +22,7 @@ const OrderSummary = (props) => {
             <p>Are you all good to checkout and eat some tasty pizza for only <strong>${grandTotalPrice.toFixed(2)}</strong>?</p>
             <GenericButton clicked={cancelBtnClick} btnType="Failure">Cancel</GenericButton>
             <GenericButton clicked={continueBtnClick} btnType="Success">Continue</GenericButton>
-        </Auxilary>
+        </>
     );
 };
 

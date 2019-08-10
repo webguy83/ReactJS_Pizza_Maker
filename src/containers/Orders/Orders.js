@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Orders.module.css';
 
 import { connect } from 'react-redux';
@@ -10,41 +10,36 @@ import withErrorHandling from '../../hoc/withErrorHandling/withErrorHandling';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Order from '../../components/Order/Order';
 
-class Orders extends Component {
+const Orders = (props) => {
 
-    state = {
-        orders: [],
-        loading: true
-    }
+    const { orders, loading } = props;
 
-    componentDidMount() {
-        this.props.loadOrders();
-    }
+    useEffect(() => {
+        props.loadOrders();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
+    const ordersOutput = loading ? <Spinner /> : orders.map(order => {
+        const { address, name, postalCode, comments } = order.data.customerData;
+        const { ingredients, totalPrice } = order.data;
+        const { orderId } = order;
+        return <Order key={orderId}
+            orderId={orderId}
+            customerAddress={address}
+            customerName={name}
+            customerPostalCode={postalCode}
+            ingredients={ingredients}
+            customerComments={comments}
+            totalPrice={"$" + totalPrice.toFixed(2)}
+        />
+    });
 
-    render() {
-        const { orders, loading } = this.props;
-        const ordersOutput = loading ? <Spinner /> : orders.map(order => {
-            const { address, name, postalCode, comments } = order.data.customerData;
-            const { ingredients, totalPrice } = order.data;
-            const { orderId } = order;
-            return <Order key={orderId}
-                orderId={orderId}
-                customerAddress={address}
-                customerName={name}
-                customerPostalCode={postalCode}
-                ingredients={ingredients}
-                customerComments={comments}
-                totalPrice={"$" + totalPrice.toFixed(2)}
-            />
-        });
-
-        return (
-            <div className={styles.Orders}>
-                <h1 className={styles.ordersHeader}>{orders.length > 0 ? "Here are your orders!" : !loading ? "You currently don't have any orders. Please order some of your tasty pizza and come back to check our orders here!" : null}</h1>
-                {ordersOutput}
-            </div>
-        );
-    }
+    return (
+        <div className={styles.Orders}>
+            <h1 className={styles.ordersHeader}>{orders.length > 0 ? "Here are your orders!" : !loading ? "You currently don't have any orders. Please order some of your tasty pizza and come back to check our orders here!" : null}</h1>
+            {ordersOutput}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {

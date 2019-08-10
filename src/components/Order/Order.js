@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './Order.module.css';
 
-import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
-
 const Order = (props) => {
     const { orderId, ingredients, totalPrice, customerAddress, customerName, customerPostalCode, customerComments } = props;
     const adjustedIngredients = ingredients ? ingredients.map((ing, i) => {
@@ -17,12 +15,12 @@ const Order = (props) => {
                 <p>{customerPostalCode}</p>
             </address>
             <div className={styles.ingredientsBlock}>
-                {adjustedIngredients ? <Auxiliary>
+                {adjustedIngredients ? <>
                     <p>Ingredients chosen:</p>
                     <ul>
                         {adjustedIngredients}
                     </ul>
-                </Auxiliary> : <p>This is a plain ass cheese pizza with no ingredients.</p>}
+                </> : <p>This is a plain ass cheese pizza with no ingredients.</p>}
             </div>
             <p>Total Price: <strong>{totalPrice}</strong></p>
             <p>{customerComments}</p>
